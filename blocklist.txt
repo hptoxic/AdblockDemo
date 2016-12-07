@@ -8,3 +8,4 @@ slave
 153.99.254.120
 112.86.231.88
 meta.video.qiyi.com
+t7z.cupid.iqiyi.com

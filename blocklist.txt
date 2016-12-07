@@ -5,4 +5,4 @@ oppo.com
 /videos/v0/
 letv-gug
 58.218.65.143
-slave.m3u8
+slave

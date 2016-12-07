@@ -1,7 +1,3 @@
 [Adblock Plus 2.0]
-vivo.com.cn
-admaster
-miaozhen
-71
-iface2
-cupid
+oppo.com
+/videos/other

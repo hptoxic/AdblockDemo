@@ -2,3 +2,4 @@
 oppo.com
 /videos/other
 112.80.30.27
+/videos/v0/

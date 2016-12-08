@@ -3,5 +3,5 @@ oppo.com
 t7z.cupid.iqiyi.com
 letv-gug
 slave
-t7z.cupid.iqiyi.com/mixer
+t7z
 other

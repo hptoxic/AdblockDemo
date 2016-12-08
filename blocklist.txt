@@ -49,4 +49,4 @@ mobile/adv.json?$domain=api.tv.sohu.com
 ||t7z.cupid.iqiyi.com^
 
 !---------------------------------letv-------------------------------!
-|letv-gug|
+/letv-gug/

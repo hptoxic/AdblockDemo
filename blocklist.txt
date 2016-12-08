@@ -1,4 +1,6 @@
 [Adblock Plus 2.0]
+t7z.cupid.iqiyi.com
+
 ||img.szkngs.com^$third-party
 ||img.appsheji.cn^$third-party
 ||img.xtbag.cn^$third-party
@@ -43,4 +45,3 @@
 /madrs?app=$domain=g1.163.com
 adv?_t_$domain=openapi.mobile.youku.com
 mobile/adv.json?$domain=api.tv.sohu.com
-t7z.cupid.iqiyi.com

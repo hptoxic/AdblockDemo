@@ -50,3 +50,4 @@ mobile/adv.json?$domain=api.tv.sohu.com
 
 !---------------------------------letv-------------------------------!
 /letv-gug/
+||dynamic.meizi.app.m.letv.com^

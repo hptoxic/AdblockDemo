@@ -6,7 +6,6 @@
 ||101.201.29.182^$third-party
 ||img.59duk.com^$third-party
 ||m.simba.taobao.com^$third-party
-||
 ||115.182.9.124^$third-party
 ||smart.789.kakamobi.cn^$third-party
 ||ubmcmm.baidustatic.com^$third-party
@@ -39,7 +38,6 @@
 ||wn.pos.baidu.com^$third-party
 ||js8.eyouv.cn^$third-party 
 ||afpeng.alimama.com^$third-party
-
 /others/admin$domain=img1.c.yinyuetai.com|img4.c.yinyuetai.com
 /app$domain=news.l.qq.com
 /madrs?app=$domain=g1.163.com

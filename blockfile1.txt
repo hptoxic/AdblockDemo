@@ -5,3 +5,4 @@ letv-gug
 slave
 t7z
 other
+mixer

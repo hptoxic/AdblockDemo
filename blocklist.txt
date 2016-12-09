@@ -53,3 +53,4 @@ mobile/adv.json?$domain=api.tv.sohu.com
 ||dynamic.meizi.app.m.letv.com^
 cmsdata/block/$domain=le.com|letv.com
 ||cn.api.push.le.com^
+gugwl*.jpg$domain=i0.letvimg.com

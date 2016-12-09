@@ -47,6 +47,7 @@ mobile/adv.json?$domain=api.tv.sohu.com
 
 !---------------------------------iqiyi-------------------------------!
 ||t7z.cupid.iqiyi.com^
+||iface.iqiyi.com/api/getNewAdInfo
 
 !---------------------------------letv-------------------------------!
 !---||dynamic.meizi.app.m.letv.com^---!

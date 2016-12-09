@@ -54,3 +54,7 @@ mobile/adv.json?$domain=api.tv.sohu.com
 !---||cn.api.push.le.com^--!
 /letv-gug/
 letvimg.com/lc*_gugwl*.jpg
+
+
+!---------------------------------youku-------------------------------!
+@@||atm.youku.com^

@@ -58,4 +58,3 @@ letvimg.com/lc*_gugwl*.jpg
 
 !---------------------------------youku-------------------------------!
 @@||atm.youku.com^
-@@||ad.api.3g.youku.com^

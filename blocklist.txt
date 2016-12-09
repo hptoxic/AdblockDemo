@@ -46,7 +46,7 @@ adv?_t_$domain=openapi.mobile.youku.com
 mobile/adv.json?$domain=api.tv.sohu.com
 
 !---------------------------------iqiyi-------------------------------!
-||t7z.cupid.iqiyi.com^
+||t7z.cupid.iqiyi.com
 
 !---------------------------------letv-------------------------------!
 !---||dynamic.meizi.app.m.letv.com^---!

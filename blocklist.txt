@@ -61,3 +61,8 @@ letvimg.com/lc*_gugwl*.jpg
 
 !----------------------------------tencent-----------------------------!
 ||news.l.qq.com/app
+
+!--------------------------------sohu----------------------------------!
+!--sohu ad system!
+||agn.aty.sohu.com/m
+||api.tv.sohu.com/v4/mobile/albumdetail.json

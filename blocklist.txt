@@ -65,3 +65,4 @@ letvimg.com/lc*_gugwl*.jpg
 !--------------------------------sohu----------------------------------!
 !--sohu ad system!
 ||api.tv.sohu.com/v4/mobile/albumdetail.json
+@@||m.aty.sohu.com/h

@@ -55,6 +55,7 @@ mobile/adv.json?$domain=api.tv.sohu.com
 !---||cn.api.push.le.com^--!
 /letv-gug/
 letvimg.com/lc*_gugwl*.jpg
+homeChannel$domain=m.le.com
 !-----------for web browser open-show----------------------------------!
 m.le.com##.show_start
 

@@ -56,7 +56,7 @@ mobile/adv.json?$domain=api.tv.sohu.com
 /letv-gug/
 letvimg.com/lc*_gugwl*.jpg
 !-----------for web browser open-show----------------------------------!
-m.le.com###div.open-show
+m.le.com##.show_start
 
 
 !---------------------------------youku-------------------------------!

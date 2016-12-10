@@ -49,7 +49,7 @@ mobile/adv.json?$domain=api.tv.sohu.com
 ||t7z.cupid.iqiyi.com^
 ||iface.iqiyi.com/api/getNewAdInfo
 !-----------not ad, but just want to block it to save data-----------!
-||hm.baidu.com$third-party
+
 ||iqiyi.com/api/getNewAdInfo
 js/page/home/887886ed!app.js
 

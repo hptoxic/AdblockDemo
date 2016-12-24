@@ -61,6 +61,7 @@ js/page/home/887886ed!app.js
 /letv-gug/
 letvimg.com/lc*_gugwl*.jpg
 homeChannel$domain=m.le.com
+ark.letv.com/adx?adzone
 !-----------for web browser open-show----------------------------------!
 m.le.com##.show_start
 

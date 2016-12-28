@@ -6692,17 +6692,7 @@ window.__openApp || (window.__openApp = {
 	mUa: require("components/util/mUa"),
 	daoliuApp: require("components/app/callApp"),
 	init: function () {
-		var e = this;
 		if (!this.mUa.isApp() && "letvphone" !== info.openby) {
-			var i = String((new Date).getTime()),
-			n = +i.slice(-1) % 2 ? String(+i + 1) : i;
-			Cookie.set("_starttips1_", n, {
-				exp: "forever"
-			}),
-			e._homeEls.css("display", ""),
-			e._body.removeClass("show-start").css("background-color", ""),
-			e._destory(),
-			e.events.emit("startPageWebWatch");
 			var t = Cookie.get("_starttips1_");
 			if (!t || t.slice(-1) % 2)
 				return info.query.noopenimg || "uc" === info.query.ref ? void Cookie.set("noopenimg", "1") : void(Cookie.get("noopenimg") || "undefined" != typeof __PromotionApp && "undefined" != typeof __PromotionApp.startPage && (this._initDom(), this._initEvent(), this.notip = !1))

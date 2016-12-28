@@ -62,9 +62,7 @@ js/page/home/887886ed!app.js
 letvimg.com/lc*_gugwl*.jpg
 ark.letv.com/adx?adzone
 !-----------for web browser open-show----------------------------------!
-m.le.com##.show-start
-m.le.com##.m-start
-m.le.com##.open-show
+
 
 
 !---------------------------------youku-------------------------------!

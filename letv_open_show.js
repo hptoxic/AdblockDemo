@@ -32,7 +32,7 @@
 ();
 var Zepto = function () {
 	function t(t) {
-		return null == t ? String(t) : X[J.call(t)] || "object"
+		return null == t ? String(t) : H[J.call(t)] || "object"
 	}
 	function e(e) {
 		return "function" == t(e)
@@ -56,7 +56,7 @@ var Zepto = function () {
 		return "number" == typeof t.length
 	}
 	function c(t) {
-		return A.call(t, function (t) {
+		return I.call(t, function (t) {
 			return null != t
 		})
 	}
@@ -66,20 +66,20 @@ var Zepto = function () {
 	function p(t) {
 		return t.replace(/::/g, "/").replace(/([A-Z]+)([A-Z][a-z])/g, "$1_$2").replace(/([a-z\d])([A-Z])/g, "$1_$2").replace(/_/g, "-").toLowerCase()
 	}
+	function u(t) {
+		return t in $ ? $[t] : $[t] = new RegExp("(^|\\s)" + t + "(\\s|$)")
+	}
+	function d(t, e) {
+		return "number" != typeof e || U[p(t)] ? e : e + "px"
+	}
 	function h(t) {
-		return t in j ? j[t] : j[t] = new RegExp("(^|\\s)" + t + "(\\s|$)")
-	}
-	function u(t, e) {
-		return "number" != typeof e || O[p(t)] ? e : e + "px"
-	}
-	function d(t) {
 		var e,
 		i;
-		return E[t] || (e = $.createElement(t), $.body.appendChild(e), i = D(e, "").getPropertyValue("display"), e.parentNode.removeChild(e), "none" == i && (i = "block"), E[t] = i),
-		E[t]
+		return j[t] || (e = E.createElement(t), E.body.appendChild(e), i = D(e, "").getPropertyValue("display"), e.parentNode.removeChild(e), "none" == i && (i = "block"), j[t] = i),
+		j[t]
 	}
 	function f(t) {
-		return "children" in t ? I.call(t.children) : S.map(t.childNodes, function (t) {
+		return "children" in t ? L.call(t.children) : S.map(t.childNodes, function (t) {
 			return 1 == t.nodeType ? t : void 0
 		})
 	}
@@ -118,16 +118,16 @@ var Zepto = function () {
 	k,
 	S,
 	T,
-	C,
 	P,
-	L = [],
-	I = L.slice,
-	A = L.filter,
-	$ = window.document,
-	E = {},
+	C,
+	A = [],
+	L = A.slice,
+	I = A.filter,
+	E = window.document,
 	j = {},
-	D = $.defaultView.getComputedStyle,
-	O = {
+	$ = {},
+	D = E.defaultView.getComputedStyle,
+	U = {
 		"column-count": 1,
 		columns: 1,
 		"font-weight": 1,
@@ -136,30 +136,30 @@ var Zepto = function () {
 		"z-index": 1,
 		zoom: 1
 	},
-	U = /^\s*<(\w+|!)[^>]*>/,
+	O = /^\s*<(\w+|!)[^>]*>/,
 	M = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi,
-	B = /^(?:body|html)$/i,
-	z = ["val", "css", "html", "text", "data", "width", "height", "offset"],
-	N = ["after", "prepend", "before", "append"],
-	R = $.createElement("table"),
-	q = $.createElement("tr"),
+	z = /^(?:body|html)$/i,
+	N = ["val", "css", "html", "text", "data", "width", "height", "offset"],
+	B = ["after", "prepend", "before", "append"],
+	R = E.createElement("table"),
+	q = E.createElement("tr"),
 	W = {
-		tr: $.createElement("tbody"),
+		tr: E.createElement("tbody"),
 		tbody: R,
 		thead: R,
 		tfoot: R,
 		td: q,
 		th: q,
-		"*": $.createElement("div")
+		"*": E.createElement("div")
 	},
 	F = /complete|loaded|interactive/,
 	K = /^\.([\w-]+)$/,
 	V = /^#([\w-]*)$/,
-	H = /^[\w-]+$/,
-	X = {},
-	J = X.toString,
+	X = /^[\w-]+$/,
+	H = {},
+	J = H.toString,
 	Y = {},
-	G = $.createElement("div");
+	G = E.createElement("div");
 	return Y.matches = function (t, e) {
 		if (!t || 1 !== t.nodeType)
 			return !1;
@@ -174,29 +174,29 @@ var Zepto = function () {
 		a && G.removeChild(t),
 		n
 	},
-	C = function (t) {
+	P = function (t) {
 		return t.replace(/-+(.)?/g, function (t, e) {
 			return e ? e.toUpperCase() : ""
 		})
 	},
-	P = function (t) {
-		return A.call(t, function (e, i) {
+	C = function (t) {
+		return I.call(t, function (e, i) {
 			return t.indexOf(e) == i
 		})
 	},
 	Y.fragment = function (t, e, i) {
 		t.replace && (t = t.replace(M, "<$1></$2>")),
-		e === x && (e = U.test(t) && RegExp.$1),
+		e === x && (e = O.test(t) && RegExp.$1),
 		e in W || (e = "*");
 		var n,
 		o,
 		r = W[e];
 		return r.innerHTML = "" + t,
-		o = S.each(I.call(r.childNodes), function () {
+		o = S.each(L.call(r.childNodes), function () {
 				r.removeChild(this)
 			}),
 		a(i) && (n = S(o), S.each(i, function (t, e) {
-				z.indexOf(t) > -1 ? n[t](e) : n.attr(t, e)
+				N.indexOf(t) > -1 ? n[t](e) : n.attr(t, e)
 			})),
 		o
 	},
@@ -212,7 +212,7 @@ var Zepto = function () {
 	Y.init = function (t, i) {
 		if (t) {
 			if (e(t))
-				return S($).ready(t);
+				return S(E).ready(t);
 			if (Y.isZ(t))
 				return t;
 			var n;
@@ -220,12 +220,12 @@ var Zepto = function () {
 				n = c(t);
 			else if (o(t))
 				n = [a(t) ? S.extend({}, t) : t], t = null;
-			else if (U.test(t))
+			else if (O.test(t))
 				n = Y.fragment(t.trim(), RegExp.$1, i), t = null;
 			else {
 				if (i !== x)
 					return S(i).find(t);
-				n = Y.qsa($, t)
+				n = Y.qsa(E, t)
 			}
 			return Y.Z(n, t)
 		}
@@ -236,7 +236,7 @@ var Zepto = function () {
 	},
 	S.extend = function (t) {
 		var e,
-		i = I.call(arguments, 1);
+		i = L.call(arguments, 1);
 		return "boolean" == typeof t && (e = t, t = i.shift()),
 		i.forEach(function (i) {
 			m(t, i, e)
@@ -245,7 +245,7 @@ var Zepto = function () {
 	},
 	Y.qsa = function (t, e) {
 		var i;
-		return n(t) && V.test(e) ? (i = t.getElementById(RegExp.$1)) ? [i] : [] : 1 !== t.nodeType && 9 !== t.nodeType ? [] : I.call(K.test(e) ? t.getElementsByClassName(RegExp.$1) : H.test(e) ? t.getElementsByTagName(e) : t.querySelectorAll(e))
+		return n(t) && V.test(e) ? (i = t.getElementById(RegExp.$1)) ? [i] : [] : 1 !== t.nodeType && 9 !== t.nodeType ? [] : L.call(K.test(e) ? t.getElementsByClassName(RegExp.$1) : X.test(e) ? t.getElementsByTagName(e) : t.querySelectorAll(e))
 	},
 	S.contains = function (t, e) {
 		return t !== e && t.contains(e)
@@ -262,9 +262,9 @@ var Zepto = function () {
 		return !0
 	},
 	S.inArray = function (t, e, i) {
-		return L.indexOf.call(e, t, i)
+		return A.indexOf.call(e, t, i)
 	},
-	S.camelCase = C,
+	S.camelCase = P,
 	S.trim = function (t) {
 		return t.trim()
 	},
@@ -298,35 +298,35 @@ var Zepto = function () {
 		return t
 	},
 	S.grep = function (t, e) {
-		return A.call(t, e)
+		return I.call(t, e)
 	},
 	window.JSON && (S.parseJSON = JSON.parse),
 	S.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function (t, e) {
-		X["[object " + e + "]"] = e.toLowerCase()
+		H["[object " + e + "]"] = e.toLowerCase()
 	}),
 	S.fn = {
-		forEach: L.forEach,
-		reduce: L.reduce,
-		push: L.push,
-		sort: L.sort,
-		indexOf: L.indexOf,
-		concat: L.concat,
+		forEach: A.forEach,
+		reduce: A.reduce,
+		push: A.push,
+		sort: A.sort,
+		indexOf: A.indexOf,
+		concat: A.concat,
 		map: function (t) {
 			return S(S.map(this, function (e, i) {
 					return t.call(e, i, e)
 				}))
 		},
 		slice: function () {
-			return S(I.apply(this, arguments))
+			return S(L.apply(this, arguments))
 		},
 		ready: function (t) {
-			return F.test($.readyState) ? t(S) : $.addEventListener("DOMContentLoaded", function () {
+			return F.test(E.readyState) ? t(S) : E.addEventListener("DOMContentLoaded", function () {
 				t(S)
 			}, !1),
 			this
 		},
 		get: function (t) {
-			return t === x ? I.call(this) : this[t >= 0 ? t : t + this.length]
+			return t === x ? L.call(this) : this[t >= 0 ? t : t + this.length]
 		},
 		toArray: function () {
 			return this.get()
@@ -340,18 +340,18 @@ var Zepto = function () {
 			})
 		},
 		each: function (t) {
-			return L.every.call(this, function (e, i) {
+			return A.every.call(this, function (e, i) {
 				return t.call(e, i, e) !== !1
 			}),
 			this
 		},
 		filter: function (t) {
-			return e(t) ? this.not(this.not(t)) : S(A.call(this, function (e) {
+			return e(t) ? this.not(this.not(t)) : S(I.call(this, function (e) {
 					return Y.matches(e, t)
 				}))
 		},
 		add: function (t, e) {
-			return S(P(this.concat(S(t, e))))
+			return S(C(this.concat(S(t, e))))
 		},
 		is: function (t) {
 			return this.length > 0 && Y.matches(this[0], t)
@@ -363,7 +363,7 @@ var Zepto = function () {
 					t.call(this, e) || i.push(this)
 				});
 			else {
-				var n = "string" == typeof t ? this.filter(t) : s(t) && e(t.item) ? I.call(t) : S(t);
+				var n = "string" == typeof t ? this.filter(t) : s(t) && e(t.item) ? L.call(t) : S(t);
 				this.forEach(function (t) {
 					n.indexOf(t) < 0 && i.push(t)
 				})
@@ -391,7 +391,7 @@ var Zepto = function () {
 			i = this;
 			return e = "object" == typeof t ? S(t).filter(function () {
 					var t = this;
-					return L.some.call(i, function (e) {
+					return A.some.call(i, function (e) {
 						return S.contains(e, t)
 					})
 				}) : 1 == this.length ? S(Y.qsa(this[0], t)) : this.map(function () {
@@ -413,7 +413,7 @@ var Zepto = function () {
 			return g(e, t)
 		},
 		parent: function (t) {
-			return g(P(this.pluck("parentNode")), t)
+			return g(C(this.pluck("parentNode")), t)
 		},
 		children: function (t) {
 			return g(this.map(function () {
@@ -422,12 +422,12 @@ var Zepto = function () {
 		},
 		contents: function () {
 			return this.map(function () {
-				return I.call(this.childNodes)
+				return L.call(this.childNodes)
 			})
 		},
 		siblings: function (t) {
 			return g(this.map(function (t, e) {
-					return A.call(f(e.parentNode), function (t) {
+					return I.call(f(e.parentNode), function (t) {
 						return t !== e
 					})
 				}), t)
@@ -445,7 +445,7 @@ var Zepto = function () {
 		show: function () {
 			return this.each(function () {
 				"none" == this.style.display && (this.style.display = null),
-				"none" == D(this, "").getPropertyValue("display") && (this.style.display = d(this.nodeName))
+				"none" == D(this, "").getPropertyValue("display") && (this.style.display = h(this.nodeName))
 			})
 		},
 		replaceWith: function (t) {
@@ -571,15 +571,15 @@ var Zepto = function () {
 		},
 		css: function (e, i) {
 			if (arguments.length < 2 && "string" == typeof e)
-				return this[0] && (this[0].style[C(e)] || D(this[0], "").getPropertyValue(e));
+				return this[0] && (this[0].style[P(e)] || D(this[0], "").getPropertyValue(e));
 			var n = "";
 			if ("string" == t(e))
-				i || 0 === i ? n = p(e) + ":" + u(e, i) : this.each(function () {
+				i || 0 === i ? n = p(e) + ":" + d(e, i) : this.each(function () {
 						this.style.removeProperty(p(e))
 					});
 			else
 				for (k in e)
-					e[k] || 0 === e[k] ? n += p(k) + ":" + u(k, e[k]) + ";" : this.each(function () {
+					e[k] || 0 === e[k] ? n += p(k) + ":" + d(k, e[k]) + ";" : this.each(function () {
 						this.style.removeProperty(p(k))
 					});
 			return this.each(function () {
@@ -590,9 +590,9 @@ var Zepto = function () {
 			return t ? this.indexOf(S(t)[0]) : this.parent().children().indexOf(this[0])
 		},
 		hasClass: function (t) {
-			return L.some.call(this, function (t) {
+			return A.some.call(this, function (t) {
 				return this.test(w(t))
-			}, h(t))
+			}, u(t))
 		},
 		addClass: function (t) {
 			return this.each(function (e) {
@@ -608,7 +608,7 @@ var Zepto = function () {
 		removeClass: function (t) {
 			return this.each(function (e) {
 				return t === x ? w(this, "") : (T = w(this), v(this, t, e, T).split(/\s+/g).forEach(function (t) {
-						T = T.replace(h(t), " ")
+						T = T.replace(u(t), " ")
 					}), void w(this, T.trim()))
 			})
 		},
@@ -629,7 +629,7 @@ var Zepto = function () {
 				var t = this[0],
 				e = this.offsetParent(),
 				i = this.offset(),
-				n = B.test(e[0].nodeName) ? {
+				n = z.test(e[0].nodeName) ? {
 					top: 0,
 					left: 0
 				}
@@ -645,7 +645,7 @@ var Zepto = function () {
 		},
 		offsetParent: function () {
 			return this.map(function () {
-				for (var t = this.offsetParent || $.body; t && !B.test(t.nodeName) && "static" == S(t).css("position"); )
+				for (var t = this.offsetParent || E.body; t && !z.test(t.nodeName) && "static" == S(t).css("position"); )
 					t = t.offsetParent;
 				return t
 			})
@@ -665,7 +665,7 @@ var Zepto = function () {
 			})
 		}
 	}),
-	N.forEach(function (e, i) {
+	B.forEach(function (e, i) {
 		var n = i % 2;
 		S.fn[e] = function () {
 			var e,
@@ -695,7 +695,7 @@ var Zepto = function () {
 		}
 	}),
 	Y.Z.prototype = S.fn,
-	Y.uniq = P,
+	Y.uniq = C,
 	Y.deserializeValue = b,
 	S.zepto = Y,
 	S
@@ -713,9 +713,9 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		c = s && t.match(/TouchPad/),
 		l = t.match(/Kindle\/([\d.]+)/),
 		p = t.match(/Silk\/([\d._]+)/),
-		h = t.match(/(BlackBerry).*Version\/([\d.]+)/),
-		u = t.match(/(BB10).*Version\/([\d.]+)/),
-		d = t.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
+		u = t.match(/(BlackBerry).*Version\/([\d.]+)/),
+		d = t.match(/(BB10).*Version\/([\d.]+)/),
+		h = t.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
 		f = t.match(/PlayBook/),
 		m = t.match(/Chrome\/([\d.]+)/) || t.match(/CriOS\/([\d.]+)/),
 		g = t.match(/Firefox\/([\d.]+)/);
@@ -725,9 +725,9 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		a && (e.ios = e.ipad = !0, e.version = a[2].replace(/_/g, ".")),
 		s && (e.webos = !0, e.version = s[2]),
 		c && (e.touchpad = !0),
-		h && (e.blackberry = !0, e.version = h[2]),
-		u && (e.bb10 = !0, e.version = u[2]),
-		d && (e.rimtabletos = !0, e.version = d[2]),
+		u && (e.blackberry = !0, e.version = u[2]),
+		d && (e.bb10 = !0, e.version = d[2]),
+		h && (e.rimtabletos = !0, e.version = h[2]),
 		f && (i.playbook = !0),
 		l && (e.kindle = !0, e.version = l[1]),
 		p && (i.silk = !0, i.version = p[1]),
@@ -735,19 +735,19 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		m && (i.chrome = !0, i.version = m[1]),
 		g && (i.firefox = !0, i.version = g[1]),
 		e.tablet = !!(a || f || o && !t.match(/Mobile/) || g && t.match(/Tablet/)),
-		e.phone = !(e.tablet || !(o || r || s || h || u || m && t.match(/Android/) || m && t.match(/CriOS\/([\d.]+)/) || g && t.match(/Mobile/)))
+		e.phone = !(e.tablet || !(o || r || s || u || d || m && t.match(/Android/) || m && t.match(/CriOS\/([\d.]+)/) || g && t.match(/Mobile/)))
 	}
 	e.call(t, navigator.userAgent),
 	t.__detect = e
 }
 (Zepto), function (t) {
 	function e(t) {
-		return t._zid || (t._zid = d++)
+		return t._zid || (t._zid = h++)
 	}
 	function i(t, i, a, r) {
 		if (i = n(i), i.ns)
 			var s = o(i.ns);
-		return (u[e(t)] || []).filter(function (t) {
+		return (d[e(t)] || []).filter(function (t) {
 			return t && (!i.e || t.e == i.e) && (!i.ns || s.test(t.ns)) && (!a || e(t.fn) === e(a)) && (!r || t.sel == r)
 		})
 	}
@@ -772,9 +772,9 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	function s(t) {
 		return m[t] || t
 	}
-	function c(i, o, c, l, p, h) {
-		var d = e(i),
-		f = u[d] || (u[d] = []);
+	function c(i, o, c, l, p, u) {
+		var h = e(i),
+		f = d[h] || (d[h] = []);
 		a(o, c, function (e, o) {
 			var a = n(e);
 			a.fn = o,
@@ -792,14 +792,14 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			},
 			a.i = f.length,
 			f.push(a),
-			i.addEventListener(s(a.e), a.proxy, r(a, h))
+			i.addEventListener(s(a.e), a.proxy, r(a, u))
 		})
 	}
 	function l(t, n, o, c, l) {
 		var p = e(t);
 		a(n || "", o, function (e, n) {
 			i(t, e, n, c).forEach(function (e) {
-				delete u[p][e.i],
+				delete d[p][e.i],
 				t.removeEventListener(s(e.e), e.proxy, r(e, l))
 			})
 		})
@@ -820,7 +820,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		}),
 		n
 	}
-	function h(t) {
+	function u(t) {
 		if (!("defaultPrevented" in t)) {
 			t.defaultPrevented = !1;
 			var e = t.preventDefault;
@@ -830,8 +830,8 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			}
 		}
 	}
-	var u = (t.zepto.qsa, {}),
-	d = 1,
+	var d = (t.zepto.qsa, {}),
+	h = 1,
 	f = {},
 	m = {
 		mouseenter: "mouseover",
@@ -922,7 +922,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	},
 	t.fn.trigger = function (e, i) {
 		return ("string" == typeof e || t.isPlainObject(e)) && (e = t.Event(e)),
-		h(e),
+		u(e),
 		e.data = i,
 		this.each(function () {
 			"dispatchEvent" in this && this.dispatchEvent(e)
@@ -1014,14 +1014,14 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		return t && (t = t.split(";", 2)[0]),
 		t && (t == k ? "html" : t == x ? "json" : b.test(t) ? "script" : y.test(t) && "xml") || "text"
 	}
-	function h(t, e) {
+	function u(t, e) {
 		return (t + "&" + e).replace(/[&?]{1,2}/, "?")
 	}
-	function u(e) {
+	function d(e) {
 		e.processData && e.data && "string" != t.type(e.data) && (e.data = t.param(e.data, e.traditional)),
-		!e.data || e.type && "GET" != e.type.toUpperCase() || (e.url = h(e.url, e.data))
+		!e.data || e.type && "GET" != e.type.toUpperCase() || (e.url = u(e.url, e.data))
 	}
-	function d(e, i, n, o) {
+	function h(e, i, n, o) {
 		var a = !t.isFunction(i);
 		return {
 			url: e,
@@ -1065,19 +1065,19 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		p = function (t) {
 			c(),
 			t && "timeout" != t || (window[n] = l),
-			s(null, t || "abort", h, e)
+			s(null, t || "abort", u, e)
 		},
-		h = {
+		u = {
 			abort: p
 		};
-		return a(h, e) === !1 ? (p("abort"), !1) : (window[n] = function (t) {
+		return a(u, e) === !1 ? (p("abort"), !1) : (window[n] = function (t) {
 			c(),
-			r(t, h, e)
+			r(t, u, e)
 		}, o.onerror = function () {
 			p("error")
 		}, o.src = e.url.replace(/=\?/, "=" + n), t("head").append(o), e.timeout > 0 && (i = setTimeout(function () {
 						p("timeout")
-					}, e.timeout)), h)
+					}, e.timeout)), u)
 	},
 	t.ajaxSettings = {
 		type: "GET",
@@ -1109,13 +1109,13 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		n(i),
 		i.crossDomain || (i.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(i.url) && RegExp.$2 != window.location.host),
 		i.url || (i.url = window.location.toString()),
-		u(i),
-		i.cache === !1 && (i.url = h(i.url, "_=" + Date.now()));
+		d(i),
+		i.cache === !1 && (i.url = u(i.url, "_=" + Date.now()));
 		var o = i.dataType,
 		c = /=\?/.test(i.url);
 		if ("jsonp" == o || c)
-			return c || (i.url = h(i.url, "callback=?")), t.ajaxJSONP(i);
-		var d,
+			return c || (i.url = u(i.url, "callback=?")), t.ajaxJSONP(i);
+		var h,
 		f = i.accepts[o],
 		v = {},
 		_ = /^([\w-]+:)\/\//.test(i.url) ? RegExp.$1 : window.location.protocol,
@@ -1127,7 +1127,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		w.onreadystatechange = function () {
 			if (4 == w.readyState) {
 				w.onreadystatechange = l,
-				clearTimeout(d);
+				clearTimeout(h);
 				var e,
 				n = !1;
 				if (w.status >= 200 && w.status < 300 || 304 == w.status || 0 == w.status && "file:" == _) {
@@ -1147,22 +1147,22 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		w.open(i.type, i.url, b);
 		for (g in i.headers)
 			w.setRequestHeader(g, i.headers[g]);
-		return a(w, i) === !1 ? (w.abort(), !1) : (i.timeout > 0 && (d = setTimeout(function () {
+		return a(w, i) === !1 ? (w.abort(), !1) : (i.timeout > 0 && (h = setTimeout(function () {
 						w.onreadystatechange = l,
 						w.abort(),
 						s(null, "timeout", w, i)
 					}, i.timeout)), w.send(i.data ? i.data : null), w)
 	},
 	t.get = function (e, i, n, o) {
-		return t.ajax(d.apply(null, arguments))
+		return t.ajax(h.apply(null, arguments))
 	},
 	t.post = function (e, i, n, o) {
-		var a = d.apply(null, arguments);
+		var a = h.apply(null, arguments);
 		return a.type = "POST",
 		t.ajax(a)
 	},
 	t.getJSON = function (e, i, n) {
-		var o = d.apply(null, arguments);
+		var o = h.apply(null, arguments);
 		return o.dataType = "json",
 		t.ajax(o)
 	},
@@ -1172,7 +1172,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		var o,
 		a = this,
 		r = e.split(/\s/),
-		s = d(e, i, n),
+		s = h(e, i, n),
 		c = s.success;
 		return r.length > 1 && (s.url = r[0], o = r[1]),
 		s.success = function (e) {
@@ -1240,9 +1240,9 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	c,
 	l,
 	p,
-	h,
 	u,
-	d = "",
+	d,
+	h = "",
 	f = {
 		Webkit: "webkit",
 		Moz: "",
@@ -1254,10 +1254,10 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	v = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i,
 	_ = {};
 	t.each(f, function (t, i) {
-		return g.style[t + "TransitionProperty"] !== e ? (d = "-" + n(t) + "-", a = i, !1) : void 0
+		return g.style[t + "TransitionProperty"] !== e ? (h = "-" + n(t) + "-", a = i, !1) : void 0
 	}),
-	r = d + "transform",
-	_[s = d + "transition-property"] = _[c = d + "transition-duration"] = _[l = d + "transition-timing-function"] = _[p = d + "animation-name"] = _[h = d + "animation-duration"] = _[u = d + "animation-timing-function"] = "",
+	r = h + "transform",
+	_[s = h + "transition-property"] = _[c = h + "transition-duration"] = _[l = h + "transition-timing-function"] = _[p = h + "animation-name"] = _[u = h + "animation-duration"] = _[d = h + "animation-timing-function"] = "",
 	t.fx = {
 		off: a === e && g.style.transitionProperty === e,
 		speeds: {
@@ -1265,7 +1265,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			fast: 200,
 			slow: 600
 		},
-		cssPrefix: d,
+		cssPrefix: h,
 		transitionEnd: o("TransitionEnd"),
 		animationEnd: o("AnimationEnd")
 	},
@@ -1274,7 +1274,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		i && (i = ("number" == typeof i ? i : t.fx.speeds[i] || t.fx.speeds._default) / 1e3),
 		this.anim(e, i, n, o)
 	},
-	t.fn.anim = function (n, o, a, d) {
+	t.fn.anim = function (n, o, a, h) {
 		var f,
 		m,
 		g,
@@ -1283,7 +1283,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		y = this,
 		x = t.fx.transitionEnd;
 		if (o === e && (o = .4), t.fx.off && (o = 0), "string" == typeof n)
-			w[p] = n, w[h] = o + "s", w[u] = a || "linear", x = t.fx.animationEnd;
+			w[p] = n, w[u] = o + "s", w[d] = a || "linear", x = t.fx.animationEnd;
 		else {
 			m = [];
 			for (f in n)
@@ -1298,7 +1298,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 				t(e.target).unbind(x, g)
 			}
 			t(this).css(_),
-			d && d.call(this)
+			h && h.call(this)
 		},
 		o > 0 && this.bind(x, g),
 		this.size() && this.get(0).clientLeft,
@@ -1318,7 +1318,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	}
 	function i() {
 		l = null,
-		h.last && (h.el.trigger("longTap"), h = {})
+		u.last && (u.el.trigger("longTap"), u = {})
 	}
 	function n() {
 		l && clearTimeout(l),
@@ -1330,7 +1330,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		c && clearTimeout(c),
 		l && clearTimeout(l),
 		r = s = c = l = null,
-		h = {}
+		u = {}
 	}
 	function a(t) {
 		return t.pointerType == t.MSPOINTER_TYPE_TOUCH && t.isPrimary
@@ -1340,10 +1340,10 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	c,
 	l,
 	p,
-	h = {},
-	u = 750;
+	u = {},
+	d = 750;
 	t(document).ready(function () {
-		var d,
+		var h,
 		f,
 		m,
 		g = 0,
@@ -1351,26 +1351,26 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		"MSGesture" in window && (p = new MSGesture, p.target = document.body),
 		t(document).bind("MSGestureEnd", function (t) {
 			var e = t.velocityX > 1 ? "Right" : t.velocityX < -1 ? "Left" : t.velocityY > 1 ? "Down" : t.velocityY < -1 ? "Up" : null;
-			e && (h.el.trigger("swipe"), h.el.trigger("swipe" + e))
+			e && (u.el.trigger("swipe"), u.el.trigger("swipe" + e))
 		}).on("touchstart MSPointerDown", function (e) {
-			("MSPointerDown" != e.type || a(e)) && (m = "MSPointerDown" == e.type ? e : e.touches[0], d = Date.now(), f = d - (h.last || d), h.el = t("tagName" in m.target ? m.target : m.target.parentNode), r && clearTimeout(r), h.x1 = m.pageX, h.y1 = m.pageY, f > 0 && 250 >= f && (h.isDoubleTap = !0), h.last = d, l = setTimeout(i, u), p && "MSPointerDown" == e.type && p.addPointer(e.pointerId))
+			("MSPointerDown" != e.type || a(e)) && (m = "MSPointerDown" == e.type ? e : e.touches[0], h = Date.now(), f = h - (u.last || h), u.el = t("tagName" in m.target ? m.target : m.target.parentNode), r && clearTimeout(r), u.x1 = m.pageX, u.y1 = m.pageY, f > 0 && 250 >= f && (u.isDoubleTap = !0), u.last = h, l = setTimeout(i, d), p && "MSPointerDown" == e.type && p.addPointer(e.pointerId))
 		}).on("touchmove MSPointerMove", function (t) {
-			("MSPointerMove" != t.type || a(t)) && (m = "MSPointerMove" == t.type ? t : t.touches[0], n(), h.x2 = m.pageX, h.y2 = m.pageY, g += Math.abs(h.x1 - h.x2), v += Math.abs(h.y1 - h.y2))
+			("MSPointerMove" != t.type || a(t)) && (m = "MSPointerMove" == t.type ? t : t.touches[0], n(), u.x2 = m.pageX, u.y2 = m.pageY, g += Math.abs(u.x1 - u.x2), v += Math.abs(u.y1 - u.y2))
 		}).on("touchend MSPointerUp", function (i) {
-			("MSPointerUp" != i.type || a(i)) && (n(), h.x2 && Math.abs(h.x1 - h.x2) > 30 || h.y2 && Math.abs(h.y1 - h.y2) > 30 ? c = setTimeout(function () {
-						h.el.trigger("swipe"),
-						h.el.trigger("swipe" + e(h.x1, h.x2, h.y1, h.y2)),
-						h = {}
-					}, 0) : "last" in h && (30 > g && 30 > v ? s = setTimeout(function () {
+			("MSPointerUp" != i.type || a(i)) && (n(), u.x2 && Math.abs(u.x1 - u.x2) > 30 || u.y2 && Math.abs(u.y1 - u.y2) > 30 ? c = setTimeout(function () {
+						u.el.trigger("swipe"),
+						u.el.trigger("swipe" + e(u.x1, u.x2, u.y1, u.y2)),
+						u = {}
+					}, 0) : "last" in u && (30 > g && 30 > v ? s = setTimeout(function () {
 								var e = t.Event("tap");
 								e.cancelTouch = o,
-								h.el.trigger(e),
-								h.isDoubleTap ? (h.el.trigger("doubleTap"), h = {}) : r = setTimeout(function () {
+								u.el.trigger(e),
+								u.isDoubleTap ? (u.el.trigger("doubleTap"), u = {}) : r = setTimeout(function () {
 										r = null,
-										h.el.trigger("singleTap"),
-										h = {}
+										u.el.trigger("singleTap"),
+										u = {}
 									}, 250)
-							}, 0) : h = {}), g = v = 0)
+							}, 0) : u = {}), g = v = 0)
 		}).on("touchcancel MSPointerCancel", o),
 		t(window).on("scroll", o)
 	}),
@@ -1406,17 +1406,17 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			return r = a.json ? JSON.stringify(r) : String(r),
 			document.cookie = [a.raw ? o : encodeURIComponent(o), "=", a.raw ? r : encodeURIComponent(r), s.expires ? "; expires=" + s.expires.toUTCString() : "", s.path ? "; path=" + s.path : "", s.domain ? "; domain=" + s.domain : "", s.secure ? "; secure" : ""].join("")
 		}
-		for (var p = a.raw ? e : i, h = document.cookie.split("; "), u = o ? void 0 : {}, d = 0, f = h.length; f > d; d++) {
-			var m = h[d].split("="),
+		for (var p = a.raw ? e : i, u = document.cookie.split("; "), d = o ? void 0 : {}, h = 0, f = u.length; f > h; h++) {
+			var m = u[h].split("="),
 			g = p(m.shift()),
 			v = p(m.join("="));
 			if (o && o === g) {
-				u = n(v);
+				d = n(v);
 				break
 			}
-			o || (u[g] = n(v))
+			o || (d[g] = n(v))
 		}
-		return "deleted" === u ? "" : u
+		return "deleted" === d ? "" : d
 	};
 	a.defaults = {},
 	t.removeCookie = function (e, i) {
@@ -1563,18 +1563,18 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 							}
 							o[c + p[s]] = !0
 						}
-						var h = i[c];
-						if (h)
-							h(p, l, e);
+						var u = i[c];
+						if (u)
+							u(p, l, e);
 						else
-							for (var u = c.split(" "), d = 0, f = u.length; f > d; d++) {
-								if (c = u[d], n[c]) {
+							for (var d = c.split(" "), h = 0, f = d.length; f > h; h++) {
+								if (c = d[h], n[c]) {
 									if (p[s] || (p[s] = " " + a++), o[c + p[s]])
 										continue;
 									o[c + p[s]] = !0
 								}
-								h = i[c],
-								h && h(p, l, e)
+								u = i[c],
+								u && u(p, l, e)
 							}
 					}
 					p = p.parentNode
@@ -2315,23 +2315,23 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		o,
 		a,
 		p,
-		h,
-		u = 1732584193,
-		d = -271733879,
+		u,
+		d = 1732584193,
+		h = -271733879,
 		f = -1732584194,
 		m = 271733878;
 		for (i = 0; i < t.length; i += 16)
-			o = u, a = d, p = f, h = m, u = r(u, d, f, m, t[i], 7, -680876936), m = r(m, u, d, f, t[i + 1], 12, -389564586), f = r(f, m, u, d, t[i + 2], 17, 606105819), d = r(d, f, m, u, t[i + 3], 22, -1044525330), u = r(u, d, f, m, t[i + 4], 7, -176418897), m = r(m, u, d, f, t[i + 5], 12, 1200080426), f = r(f, m, u, d, t[i + 6], 17, -1473231341), d = r(d, f, m, u, t[i + 7], 22, -45705983), u = r(u, d, f, m, t[i + 8], 7, 1770035416), m = r(m, u, d, f, t[i + 9], 12, -1958414417), f = r(f, m, u, d, t[i + 10], 17, -42063), d = r(d, f, m, u, t[i + 11], 22, -1990404162), u = r(u, d, f, m, t[i + 12], 7, 1804603682), m = r(m, u, d, f, t[i + 13], 12, -40341101), f = r(f, m, u, d, t[i + 14], 17, -1502002290), d = r(d, f, m, u, t[i + 15], 22, 1236535329), u = s(u, d, f, m, t[i + 1], 5, -165796510), m = s(m, u, d, f, t[i + 6], 9, -1069501632), f = s(f, m, u, d, t[i + 11], 14, 643717713), d = s(d, f, m, u, t[i], 20, -373897302), u = s(u, d, f, m, t[i + 5], 5, -701558691), m = s(m, u, d, f, t[i + 10], 9, 38016083), f = s(f, m, u, d, t[i + 15], 14, -660478335), d = s(d, f, m, u, t[i + 4], 20, -405537848), u = s(u, d, f, m, t[i + 9], 5, 568446438), m = s(m, u, d, f, t[i + 14], 9, -1019803690), f = s(f, m, u, d, t[i + 3], 14, -187363961), d = s(d, f, m, u, t[i + 8], 20, 1163531501), u = s(u, d, f, m, t[i + 13], 5, -1444681467), m = s(m, u, d, f, t[i + 2], 9, -51403784), f = s(f, m, u, d, t[i + 7], 14, 1735328473), d = s(d, f, m, u, t[i + 12], 20, -1926607734), u = c(u, d, f, m, t[i + 5], 4, -378558), m = c(m, u, d, f, t[i + 8], 11, -2022574463), f = c(f, m, u, d, t[i + 11], 16, 1839030562), d = c(d, f, m, u, t[i + 14], 23, -35309556), u = c(u, d, f, m, t[i + 1], 4, -1530992060), m = c(m, u, d, f, t[i + 4], 11, 1272893353), f = c(f, m, u, d, t[i + 7], 16, -155497632), d = c(d, f, m, u, t[i + 10], 23, -1094730640), u = c(u, d, f, m, t[i + 13], 4, 681279174), m = c(m, u, d, f, t[i], 11, -358537222), f = c(f, m, u, d, t[i + 3], 16, -722521979), d = c(d, f, m, u, t[i + 6], 23, 76029189), u = c(u, d, f, m, t[i + 9], 4, -640364487), m = c(m, u, d, f, t[i + 12], 11, -421815835), f = c(f, m, u, d, t[i + 15], 16, 530742520), d = c(d, f, m, u, t[i + 2], 23, -995338651), u = l(u, d, f, m, t[i], 6, -198630844), m = l(m, u, d, f, t[i + 7], 10, 1126891415), f = l(f, m, u, d, t[i + 14], 15, -1416354905), d = l(d, f, m, u, t[i + 5], 21, -57434055), u = l(u, d, f, m, t[i + 12], 6, 1700485571), m = l(m, u, d, f, t[i + 3], 10, -1894986606), f = l(f, m, u, d, t[i + 10], 15, -1051523), d = l(d, f, m, u, t[i + 1], 21, -2054922799), u = l(u, d, f, m, t[i + 8], 6, 1873313359), m = l(m, u, d, f, t[i + 15], 10, -30611744), f = l(f, m, u, d, t[i + 6], 15, -1560198380), d = l(d, f, m, u, t[i + 13], 21, 1309151649), u = l(u, d, f, m, t[i + 4], 6, -145523070), m = l(m, u, d, f, t[i + 11], 10, -1120210379), f = l(f, m, u, d, t[i + 2], 15, 718787259), d = l(d, f, m, u, t[i + 9], 21, -343485551), u = n(u, o), d = n(d, a), f = n(f, p), m = n(m, h);
-		return [u, d, f, m]
+			o = d, a = h, p = f, u = m, d = r(d, h, f, m, t[i], 7, -680876936), m = r(m, d, h, f, t[i + 1], 12, -389564586), f = r(f, m, d, h, t[i + 2], 17, 606105819), h = r(h, f, m, d, t[i + 3], 22, -1044525330), d = r(d, h, f, m, t[i + 4], 7, -176418897), m = r(m, d, h, f, t[i + 5], 12, 1200080426), f = r(f, m, d, h, t[i + 6], 17, -1473231341), h = r(h, f, m, d, t[i + 7], 22, -45705983), d = r(d, h, f, m, t[i + 8], 7, 1770035416), m = r(m, d, h, f, t[i + 9], 12, -1958414417), f = r(f, m, d, h, t[i + 10], 17, -42063), h = r(h, f, m, d, t[i + 11], 22, -1990404162), d = r(d, h, f, m, t[i + 12], 7, 1804603682), m = r(m, d, h, f, t[i + 13], 12, -40341101), f = r(f, m, d, h, t[i + 14], 17, -1502002290), h = r(h, f, m, d, t[i + 15], 22, 1236535329), d = s(d, h, f, m, t[i + 1], 5, -165796510), m = s(m, d, h, f, t[i + 6], 9, -1069501632), f = s(f, m, d, h, t[i + 11], 14, 643717713), h = s(h, f, m, d, t[i], 20, -373897302), d = s(d, h, f, m, t[i + 5], 5, -701558691), m = s(m, d, h, f, t[i + 10], 9, 38016083), f = s(f, m, d, h, t[i + 15], 14, -660478335), h = s(h, f, m, d, t[i + 4], 20, -405537848), d = s(d, h, f, m, t[i + 9], 5, 568446438), m = s(m, d, h, f, t[i + 14], 9, -1019803690), f = s(f, m, d, h, t[i + 3], 14, -187363961), h = s(h, f, m, d, t[i + 8], 20, 1163531501), d = s(d, h, f, m, t[i + 13], 5, -1444681467), m = s(m, d, h, f, t[i + 2], 9, -51403784), f = s(f, m, d, h, t[i + 7], 14, 1735328473), h = s(h, f, m, d, t[i + 12], 20, -1926607734), d = c(d, h, f, m, t[i + 5], 4, -378558), m = c(m, d, h, f, t[i + 8], 11, -2022574463), f = c(f, m, d, h, t[i + 11], 16, 1839030562), h = c(h, f, m, d, t[i + 14], 23, -35309556), d = c(d, h, f, m, t[i + 1], 4, -1530992060), m = c(m, d, h, f, t[i + 4], 11, 1272893353), f = c(f, m, d, h, t[i + 7], 16, -155497632), h = c(h, f, m, d, t[i + 10], 23, -1094730640), d = c(d, h, f, m, t[i + 13], 4, 681279174), m = c(m, d, h, f, t[i], 11, -358537222), f = c(f, m, d, h, t[i + 3], 16, -722521979), h = c(h, f, m, d, t[i + 6], 23, 76029189), d = c(d, h, f, m, t[i + 9], 4, -640364487), m = c(m, d, h, f, t[i + 12], 11, -421815835), f = c(f, m, d, h, t[i + 15], 16, 530742520), h = c(h, f, m, d, t[i + 2], 23, -995338651), d = l(d, h, f, m, t[i], 6, -198630844), m = l(m, d, h, f, t[i + 7], 10, 1126891415), f = l(f, m, d, h, t[i + 14], 15, -1416354905), h = l(h, f, m, d, t[i + 5], 21, -57434055), d = l(d, h, f, m, t[i + 12], 6, 1700485571), m = l(m, d, h, f, t[i + 3], 10, -1894986606), f = l(f, m, d, h, t[i + 10], 15, -1051523), h = l(h, f, m, d, t[i + 1], 21, -2054922799), d = l(d, h, f, m, t[i + 8], 6, 1873313359), m = l(m, d, h, f, t[i + 15], 10, -30611744), f = l(f, m, d, h, t[i + 6], 15, -1560198380), h = l(h, f, m, d, t[i + 13], 21, 1309151649), d = l(d, h, f, m, t[i + 4], 6, -145523070), m = l(m, d, h, f, t[i + 11], 10, -1120210379), f = l(f, m, d, h, t[i + 2], 15, 718787259), h = l(h, f, m, d, t[i + 9], 21, -343485551), d = n(d, o), h = n(h, a), f = n(f, p), m = n(m, u);
+		return [d, h, f, m]
 	}
-	function h(t) {
+	function u(t) {
 		var e,
 		i = "";
 		for (e = 0; e < 32 * t.length; e += 8)
 			i += String.fromCharCode(t[e >> 5] >>> e % 32 & 255);
 		return i
 	}
-	function u(t) {
+	function d(t) {
 		var e,
 		i = [];
 		for (i[(t.length >> 2) - 1] = void 0, e = 0; e < i.length; e += 1)
@@ -2340,19 +2340,19 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			i[e >> 5] |= (255 & t.charCodeAt(e / 8)) << e % 32;
 		return i
 	}
-	function d(t) {
-		return h(p(u(t), 8 * t.length))
+	function h(t) {
+		return u(p(d(t), 8 * t.length))
 	}
 	function f(t, e) {
 		var i,
 		n,
-		o = u(t),
+		o = d(t),
 		a = [],
 		r = [];
 		for (a[15] = r[15] = void 0, o.length > 16 && (o = p(o, 8 * t.length)), i = 0; 16 > i; i += 1)
 			a[i] = 909522486 ^ o[i], r[i] = 1549556828 ^ o[i];
-		return n = p(a.concat(u(e)), 512 + 8 * e.length),
-		h(p(r.concat(n), 640))
+		return n = p(a.concat(d(e)), 512 + 8 * e.length),
+		u(p(r.concat(n), 640))
 	}
 	function m(t) {
 		var e,
@@ -2367,7 +2367,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		return unescape(encodeURIComponent(t))
 	}
 	function v(t) {
-		return d(g(t))
+		return h(g(t))
 	}
 	function _(t) {
 		return m(v(t))
@@ -2439,20 +2439,20 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			var p = t.substr(0, i);
 		else
 			var p = "";
-		var h,
-		u = n + s(n + p);
+		var u,
+		d = n + s(n + p);
 		t = t.substr(i),
-		h = c.decode(t);
-		for (var d = new Array(256), f = 0; 256 > f; f++)
-			d[f] = f;
+		u = c.decode(t);
+		for (var h = new Array(256), f = 0; 256 > f; f++)
+			h[f] = f;
 		for (var m = new Array, f = 0; 256 > f; f++)
-			m[f] = u.charCodeAt(f % u.length);
+			m[f] = d.charCodeAt(f % d.length);
 		for (var g = f = 0; 256 > f; f++)
-			g = (g + d[f] + m[f]) % 256, tmp = d[f], d[f] = d[g], d[g] = tmp;
+			g = (g + h[f] + m[f]) % 256, tmp = h[f], h[f] = h[g], h[g] = tmp;
 		var v = "";
-		h = h.split("");
-		for (var _ = g = f = 0; f < h.length; f++)
-			_ = (_ + 1) % 256, g = (g + d[_]) % 256, tmp = d[_], d[_] = d[g], d[g] = tmp, v += a(r(h[f]) ^ d[(d[_] + d[g]) % 256]);
+		u = u.split("");
+		for (var _ = g = f = 0; f < u.length; f++)
+			_ = (_ + 1) % 256, g = (g + h[_]) % 256, tmp = h[_], h[_] = h[g], h[g] = tmp, v += a(r(u[f]) ^ h[(h[_] + h[g]) % 256]);
 		return v = (0 == v.substr(0, 10) || v.substr(0, 10) - o() > 0) && v.substr(10, 16) == s(v.substr(26) + l).substr(0, 16) ? v.substr(26) : ""
 	}
 	function o() {
@@ -2512,7 +2512,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	p = function (t) {
 		window.LeSuperWebview && window.LeSuperWebview.callNativeFunc && window.LeSuperWebview.callNativeFunc(t)
 	},
-	h = function (t, e) {
+	u = function (t, e) {
 		var i = "letv_bridge_" + (new Date).getTime() + Math.floor(1e4 * Math.random()),
 		o = {};
 		n[i] = e,
@@ -2521,27 +2521,27 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		o.callback = "LetvJSBridge.callback",
 		window.LeSuperWebview && window.LeSuperWebview.callEventManage && window.LeSuperWebview.callEventManage(JSON.stringify(o))
 	},
-	u = function (t, e) {
+	d = function (t, e) {
 		var i = t.split(".");
 		2 === i.length && (s[i[0]][i[1]] = function (t, o) {
 			t = t || "{}",
 			o = o || function () {};
 			var s = "letv_bridge_" + (new Date).getTime() + Math.floor(1e4 * Math.random()),
-			h = r ? i.join(".") : i.join("_"),
-			u = {};
+			u = r ? i.join(".") : i.join("_"),
+			d = {};
 			n[s] = o,
-			u.name = t,
-			u.callback_id = s,
-			u.callback = "LetvJSBridge.callback",
-			u.func = h,
-			a && (u.eventname = e || ""),
-			a ? p(JSON.stringify([u])) : r ? c(JSON.stringify([u]), h, s) : l(JSON.stringify([u]), h)
+			d.name = t,
+			d.callback_id = s,
+			d.callback = "LetvJSBridge.callback",
+			d.func = u,
+			a && (d.eventname = e || ""),
+			a ? p(JSON.stringify([d])) : r ? c(JSON.stringify([d]), u, s) : l(JSON.stringify([d]), u)
 		})
 	};
 	i.exports = {
 		bridge: s,
-		registerFunc: u,
-		registerEvent: h
+		registerFunc: d,
+		registerEvent: u
 	}
 }, LTK["sdk/bridge/app"] = function (t, e, i) {
 	"use strict";
@@ -2888,12 +2888,12 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	}
 	function o(t) {
 		return t = t || {},
-		t.appId = C.appId,
-		t.verifyAppId = C.appId,
+		t.appId = P.appId,
+		t.verifyAppId = P.appId,
 		t.verifySignType = "sha1",
-		t.verifyTimestamp = C.timestamp + "",
-		t.verifyNonceStr = C.nonceStr,
-		t.verifySignature = C.signature,
+		t.verifyTimestamp = P.timestamp + "",
+		t.verifyNonceStr = P.nonceStr,
+		t.verifySignature = P.signature,
 		t
 	}
 	function a(t, e) {
@@ -2918,7 +2918,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		var n,
 		o,
 		a;
-		switch (delete e.err_code, delete e.err_desc, delete e.err_detail, n = e.errMsg, n || (n = e.err_msg, delete e.err_msg, n = c(t, n, i), e.errMsg = n), i = i || {}, i._complete && (i._complete(e), delete i._complete), n = e.errMsg || "", C.debug && !i.isInnerInvoke && alert(JSON.stringify(e)), o = n.indexOf(":"), a = n.substring(o + 1)) {
+		switch (delete e.err_code, delete e.err_desc, delete e.err_detail, n = e.errMsg, n || (n = e.err_msg, delete e.err_msg, n = c(t, n, i), e.errMsg = n), i = i || {}, i._complete && (i._complete(e), delete i._complete), n = e.errMsg || "", P.debug && !i.isInnerInvoke && alert(JSON.stringify(e)), o = n.indexOf(":"), a = n.substring(o + 1)) {
 		case "ok":
 			i.success && i.success(e);
 			break;
@@ -2979,20 +2979,20 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		}
 	}
 	function p(t, e) {
-		if (C.debug && !e.isInnerInvoke) {
+		if (P.debug && !e.isInnerInvoke) {
 			var i = g[t];
 			i && (t = i),
 			e && e._complete && delete e._complete,
 			console.log('"' + t + '",', e || "")
 		}
 	}
-	function h() {
+	function u() {
 		if (!("6.0.2" > k || T.systemType < 0)) {
 			var t = new Image;
-			T.appId = C.appId,
+			T.appId = P.appId,
 			T.initTime = S.initEndTime - S.initStartTime,
 			T.preVerifyTime = S.preVerifyEndTime - S.preVerifyStartTime,
-			I.getNetworkType({
+			L.getNetworkType({
 				isInnerInvoke: !0,
 				success: function (e) {
 					T.networkType = e.networkType;
@@ -3002,16 +3002,16 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			})
 		}
 	}
-	function u() {
+	function d() {
 		return (new Date).getTime()
 	}
-	function d(e) {
+	function h(e) {
 		b && (t.WeixinJSBridge ? e() : v.addEventListener && v.addEventListener("WeixinJSBridgeReady", e, !1))
 	}
 	function f() {
-		I.invoke || (I.invoke = function (e, i, n) {
+		L.invoke || (L.invoke = function (e, i, n) {
 			t.WeixinJSBridge && WeixinJSBridge.invoke(e, o(i), n)
-		}, I.on = function (e, i) {
+		}, L.on = function (e, i) {
 			t.WeixinJSBridge && WeixinJSBridge.on(e, i);
 		})
 	}
@@ -3026,10 +3026,10 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	k,
 	S,
 	T,
-	C,
 	P,
-	L,
-	I;
+	C,
+	A,
+	L;
 	return t.jWeixin ? void 0 : (m = {
 			config: "preVerifyJSAPI",
 			onMenuShareTimeline: "menu:share:timeline",
@@ -3054,7 +3054,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		return t ? t[1] : ""
 	}
 		(), S = {
-			initStartTime: u(),
+			initStartTime: d(),
 			initEndTime: 0,
 			preVerifyStartTime: 0,
 			preVerifyEndTime: 0
@@ -3068,53 +3068,53 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			systemType: x ? 1 : y ? 2 : -1,
 			clientVersion: k,
 			url: encodeURIComponent(location.href)
-		}, C = {}, P = {
+		}, P = {}, C = {
 			_completes: []
-		}, L = {
+		}, A = {
 			state: 0,
 			res: {}
-		}, d(function () {
-			S.initEndTime = u()
-		}), I = {
+		}, h(function () {
+			S.initEndTime = d()
+		}), L = {
 			config: function (t) {
-				C = t,
+				P = t,
 				p("config", t),
-				d(function () {
+				h(function () {
 					i(m.config, {
-						verifyJsApiList: l(C.jsApiList)
+						verifyJsApiList: l(P.jsApiList)
 					}, function () {
-						P._complete = function (t) {
-							S.preVerifyEndTime = u(),
-							L.state = 1,
-							L.res = t
+						C._complete = function (t) {
+							S.preVerifyEndTime = d(),
+							A.state = 1,
+							A.res = t
 						},
-						P.success = function () {
+						C.success = function () {
 							T.isPreVerifyOk = 0
 						},
-						P.fail = function (t) {
-							P._fail ? P._fail(t) : L.state = -1
+						C.fail = function (t) {
+							C._fail ? C._fail(t) : A.state = -1
 						};
-						var t = P._completes;
+						var t = C._completes;
 						return t.push(function () {
-							C.debug || h()
+							P.debug || u()
 						}),
-						P.complete = function (e) {
+						C.complete = function (e) {
 							for (var i = 0, n = t.length; n > i; ++i)
 								t[i](e);
-							P._completes = []
+							C._completes = []
 						},
-						P
+						C
 					}
 						()),
-					S.preVerifyStartTime = u()
+					S.preVerifyStartTime = d()
 				}),
-				C.beta && f()
+				P.beta && f()
 			},
 			ready: function (t) {
-				0 != L.state ? t() : (P._completes.push(t), !b && C.debug && t())
+				0 != A.state ? t() : (C._completes.push(t), !b && P.debug && t())
 			},
 			error: function (t) {
-				"6.0.2" > k || (-1 == L.state ? t(L.res) : P._fail = t)
+				"6.0.2" > k || (-1 == A.state ? t(A.res) : C._fail = t)
 			},
 			checkJsApi: function (t) {
 				var e = function (t) {
@@ -3392,7 +3392,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			},
 			chooseCard: function (t) {
 				i("chooseCard", {
-					app_id: C.appId,
+					app_id: P.appId,
 					location_id: t.shopId || "",
 					sign_type: t.signType || "SHA1",
 					card_id: t.cardId || "",
@@ -3429,7 +3429,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			chooseWXPay: function (t) {
 				i(m.chooseWXPay, r(t), t)
 			}
-		}, e && (t.wx = t.jWeixin = I), I)
+		}, e && (t.wx = t.jWeixin = L), L)
 }), LTK["components/player/mPlayer"] = function (t, e, i) {
 	"use strict";
 	function n() {
@@ -3528,17 +3528,17 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 				try {
 					t = JSON.parse(t)
 				} catch (c) {
-					return void alert("å‚æ•°ä¸æ˜¯ä¸€ä¸ªæœ‰æ•ˆçš„JSONæ ¼å¼")
+					return void alert("参数不是一个有效的JSON格式")
 				}
 			s[i] = e,
 			r.name = t,
 			r.callback_id = i,
 			r.callback = "LetvJSBridge.shareback",
 			r.func = a,
-			d(JSON.stringify([r]), a, i)
+			h(JSON.stringify([r]), a, i)
 		})
 	},
-	h = function (t, e, i) {
+	u = function (t, e, i) {
 		try {
 			var n = document.createElement("iframe");
 			n.id = i,
@@ -3547,12 +3547,12 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			n.src = r + ":" + e + ":" + t
 		} catch (o) {}
 	},
-	u = function (t, e) {
+	d = function (t, e) {
 		try {
 			window.LetvJSBridge_For_Android[e](t)
 		} catch (i) {}
 	},
-	d = o ? h : u;
+	h = o ? u : d;
 	["fun.callShare", "fun.setShare"].forEach(p),
 	c.isAppEnv = a,
 	i.exports = c
@@ -3626,7 +3626,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		signature: "",
 		jsApiList: c
 	},
-	h = {
+	u = {
 		type: "webpage",
 		title: "",
 		desc: "",
@@ -3636,24 +3636,24 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		onsuccess: l,
 		oncancel: l
 	},
-	u = function (t, e) {
+	d = function (t, e) {
 		e.success = function () {
-			h.onsuccess({
+			u.onsuccess({
 				type: t
 			})
 		},
 		e.cancel = function () {
-			h.oncancel({
+			u.oncancel({
 				type: t
 			})
 		},
 		wx && wx[t](e)
 	},
-	d = function (t) {
-		var e = h.link.indexOf("ref=share_" + t),
-		i = h.link.indexOf("?"),
-		n = /&$/.test(h.link),
-		o = -1 === e ? -1 === i ? h.link + "?ref=share_" + t : n ? h.link + "ref=share_" + t : h.link + "&ref=share_" + t : h.link;
+	h = function (t) {
+		var e = u.link.indexOf("ref=share_" + t),
+		i = u.link.indexOf("?"),
+		n = /&$/.test(u.link),
+		o = -1 === e ? -1 === i ? u.link + "?ref=share_" + t : n ? u.link + "ref=share_" + t : u.link + "&ref=share_" + t : u.link;
 		return o
 	},
 	f = function (t) {
@@ -3667,7 +3667,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	m = {
 		weixin: function () {
 			if (!window.wx)
-				return void console.log("è¯·å…ˆå¼•å…¥å¾®ä¿¡JSSDKï¼");
+				return void console.log("请先引入微信JSSDK！");
 			var t = function () {
 				wx.config({
 					debug: p.debug,
@@ -3680,86 +3680,86 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 				wx.error(function () {}),
 				wx.ready(function () {
 					var t = {
-						title: h.title,
-						desc: h.desc,
-						link: h.link,
-						imgUrl: h.imgUrl
+						title: u.title,
+						desc: u.desc,
+						link: u.link,
+						imgUrl: u.imgUrl
 					};
-					u("onMenuShareTimeline", t),
-					u("onMenuShareAppMessage", t),
-					u("onMenuShareQQ", t),
-					u("onMenuShareWeibo", t)
+					d("onMenuShareTimeline", t),
+					d("onMenuShareAppMessage", t),
+					d("onMenuShareQQ", t),
+					d("onMenuShareWeibo", t)
 				})
 			};
 			p.appId ? t() : f(t)
 		},
 		weibo: function () {
 			var t = "http://service.weibo.com/share/share.php?";
-			t += "url=" + encodeURIComponent(d("tsina")),
-			t += "&title=" + encodeURIComponent(h.desc),
-			t += "&pic=" + encodeURIComponent(h.imgUrl),
+			t += "url=" + encodeURIComponent(h("tsina")),
+			t += "&title=" + encodeURIComponent(u.desc),
+			t += "&pic=" + encodeURIComponent(u.imgUrl),
 			t += "&appkey=" + encodeURIComponent(p.tsina),
 			window.location.href = t
 		},
 		qzone: function () {
 			var t = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
-			t += "url=" + encodeURIComponent(d("qzone")),
-			t += "&title=" + encodeURIComponent(h.title),
-			t += "&desc=" + encodeURIComponent(h.desc),
-			t += "&summary=" + encodeURIComponent(h.summary),
+			t += "url=" + encodeURIComponent(h("qzone")),
+			t += "&title=" + encodeURIComponent(u.title),
+			t += "&desc=" + encodeURIComponent(u.desc),
+			t += "&summary=" + encodeURIComponent(u.summary),
 			t += "&site=",
-			t += "&pics=" + encodeURIComponent(h.imgUrl),
+			t += "&pics=" + encodeURIComponent(u.imgUrl),
 			window.open(t, "_blank")
 		},
 		fb: function () {
 			var t = "https://www.facebook.com/sharer/sharer.php?";
-			t += "u=" + encodeURIComponent(d("facebook")),
+			t += "u=" + encodeURIComponent(h("facebook")),
 			t += "&display=popup&ref=plugin&src=share_button&app_id=",
 			window.open(t, "_blank")
 		},
 		tw: function () {
 			var t = "https://twitter.com/intent/tweet?";
-			t += "url=" + encodeURIComponent(d("twitter")),
-			t += "&text=" + encodeURIComponent(h.title),
+			t += "url=" + encodeURIComponent(h("twitter")),
+			t += "&text=" + encodeURIComponent(u.title),
 			t += "&related=msite",
 			window.location.href = t
 		}
 	},
 	g = function () {
-		h.title = h.title && h.title.length > 50 ? h.title.substr(0, 50) + "..." : h.title,
-		h.desc = h.desc && h.desc.length > 140 ? h.desc.substr(0, 140) + "..." : h.desc,
-		h.summary = h.summary && h.summary.length > 50 ? h.summary.substr(0, 50) + "..." : h.summary,
-		h.onsuccess = h.onsuccess || l,
-		h.oncancel = h.oncancel || l
+		u.title = u.title && u.title.length > 50 ? u.title.substr(0, 50) + "..." : u.title,
+		u.desc = u.desc && u.desc.length > 140 ? u.desc.substr(0, 140) + "..." : u.desc,
+		u.summary = u.summary && u.summary.length > 50 ? u.summary.substr(0, 50) + "..." : u.summary,
+		u.onsuccess = u.onsuccess || l,
+		u.oncancel = u.oncancel || l
 	},
 	v = function () {
 		return {
-			type: h.type || "webpage",
-			title: h.title,
-			webUrl: h.link,
-			webImage: h.imgUrl,
-			desc: h.desc
+			type: u.type || "webpage",
+			title: u.title,
+			webUrl: u.link,
+			webImage: u.imgUrl,
+			desc: u.desc
 		}
 	},
 	_ = {
 		callShare: function (t) {
-			"object" == typeof t && -1 !== s.indexOf(t.channelName) && (n(h, t), "weixin" === t.channelName && (n(p, h.cfg), "1" !== a.getParam("_wxdebug") || p.debug || (p.debug = !0)), delete h.cfg, g(), m[h.channelName]())
+			"object" == typeof t && -1 !== s.indexOf(t.channelName) && (n(u, t), "weixin" === t.channelName && (n(p, u.cfg), "1" !== a.getParam("_wxdebug") || p.debug || (p.debug = !0)), delete u.cfg, g(), m[u.channelName]())
 		},
 		callAppShare: function (t) {
-			n(h, t),
-			delete h.cfg,
+			n(u, t),
+			delete u.cfg,
 			g();
 			var e = function (t) {
-				200 === t.result ? h.onsuccess(t) : h.oncancel(t)
+				200 === t.result ? u.onsuccess(t) : u.oncancel(t)
 			};
 			o.isAppEnv && o.fun.callShare(v(), e)
 		},
 		setAppShare: function (t) {
-			n(h, t),
-			delete h.cfg,
+			n(u, t),
+			delete u.cfg,
 			g();
 			var e = function (t) {
-				200 === t.result ? h.onsuccess(t) : h.oncancel(t)
+				200 === t.result ? u.onsuccess(t) : u.oncancel(t)
 			};
 			o.isAppEnv && o.fun.setShare(v(), e)
 		}
@@ -3944,48 +3944,48 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	"use strict";
 	t("components/com_base/global");
 	var n = {
-		pre_end: "è¯•çœ‹å·²ç»“æŸ",
-		pre_time: "3ç§’",
-		pre_full: "è§‚çœ‹å®Œæ•´ç‰ˆ",
-		downapp: "ä¸‹è½½ä¹è§†è§†é¢‘APP",
-		downapp_ty: "ä¸‹è½½ä¹è§†ä½“è‚²APP",
-		timeout1: "ç¨‹åºå‘˜å“¥å“¥æ‰“çžŒç¡ç¡ç€äº†",
-		timeout2: "æˆ³è¿™é‡Œå«ä»–èµ·åºŠ",
-		timeout3: "ç¡å¾—å¤ªé¦™äº†,ç«Ÿç„¶æ²¡æœ‰é†’",
-		timeout4: "ç»§ç»­æˆ³ä»–",
-		timeout5: "ç¨‹åºå‘˜å“¥å“¥å¤ªç–²åŠ³,å†è®©ä»–ç¡ä¼šå§",
-		timeout6: "ç¨åŽå†è¯•",
+		pre_end: "试看已结束",
+		pre_time: "3秒",
+		pre_full: "观看完整版",
+		downapp: "下载乐视视频APP",
+		downapp_ty: "下载乐视体育APP",
+		timeout1: "程序员哥哥打瞌睡睡着了",
+		timeout2: "戳这里叫他起床",
+		timeout3: "睡得太香了,竟然没有醒",
+		timeout4: "继续戳他",
+		timeout5: "程序员哥哥太疲劳,再让他睡会吧",
+		timeout6: "稍后再试",
 		browser: "//i2.letvimg.com/lc02_img/201512/02/14/41/browser.png",
-		watch_now: "ç«‹å³è§‚çœ‹",
+		watch_now: "立即观看",
 		shareImg: "//i0.letvimg.com/lc03_img/201508/21/10/59/1058/share.png",
 		layerImg: "//i1.letvimg.com/lc05_img/201601/11/14/37/1436/ms_layer.png",
-		topdl: "ä½¿ç”¨ä¹è§†è§†é¢‘APPçœ‹ç›´æ’­æ›´æµç•…",
-		topapp: "ä¸‹è½½App",
-		topdl_ty: "ä½¿ç”¨ä¹è§†ä½“è‚²APP çœ‹èµ›äº‹ç›´æ’­æ›´æµç•…",
-		topdl_pre1: "è¯•çœ‹",
-		topdl_pre2: "åˆ†é’Ÿï¼Œå®Œæ•´ç‰ˆå°½åœ¨ä¹è§†è§†é¢‘APP",
-		loadmore1: "ä¸Šæ‹‰åŠ è½½æ›´å¤š",
-		loadmore2: "ä¸‹æ‹‰åŠ è½½æ›´å¤š",
-		loadmore3: "åŠ è½½ä¸­...",
-		loadmore4: "åŠ è½½å¤±è´¥ï¼Œè¯·ä¸Šæ‹‰é‡è¯•",
-		loadmore5: "åŠ è½½å¤±è´¥ï¼Œè¯·ä¸‹æ‹‰é‡è¯•",
-		bdphone1: "ä¸ºå……åˆ†ä¿æŠ¤æ‚¨ä¿¡æ¯å®‰å…¨å’Œåˆæ³•æƒåˆ©",
-		bdphone2: "è¯·ç»‘å®šæ‰‹æœºåŽæ–¹å¯è¯„è®º",
-		bdphone3: "å‰å¾€ç»‘å®š",
-		qq: "QQç©ºé—´",
-		wb: "æ–°æµªå¾®åš",
-		wx: "å¾®ä¿¡",
-		cancel: "å–æ¶ˆ",
+		topdl: "使用乐视视频APP看直播更流畅",
+		topapp: "下载App",
+		topdl_ty: "使用乐视体育APP 看赛事直播更流畅",
+		topdl_pre1: "试看",
+		topdl_pre2: "分钟，完整版尽在乐视视频APP",
+		loadmore1: "上拉加载更多",
+		loadmore2: "下拉加载更多",
+		loadmore3: "加载中...",
+		loadmore4: "加载失败，请上拉重试",
+		loadmore5: "加载失败，请下拉重试",
+		bdphone1: "为充分保护您信息安全和合法权利",
+		bdphone2: "请绑定手机后方可评论",
+		bdphone3: "前往绑定",
+		qq: "QQ空间",
+		wb: "新浪微博",
+		wx: "微信",
+		cancel: "取消",
 		layerImg2: "//i2.letvimg.com/lc03_img/201510/20/17/45/img_collect.png",
-		pcover1: "æœ¬ç‰‡ä¸ºä»˜è´¹å½±ç‰‡ï¼Œå¼€é€šä¼šå‘˜å¯å…è´¹è§‚çœ‹",
-		pcover2: "è¯•çœ‹å·²ç»“æŸï¼Œç»§ç»­è§‚çœ‹è¯·å¼€é€šä¼šå‘˜",
-		pcover3: "å¼€é€šä¼šå‘˜",
-		pcover4: "å·²æ˜¯ä¼šå‘˜ï¼Œç«‹å³ç™»å½•",
-		item_w: " ä¸‡",
-		item_y: " äº¿",
-		vip0: "ä¼šå‘˜æžé€Ÿçœ‹è§†é¢‘",
-		vip1: "ä¹æ¬¡å…ƒå½±è§†ä¼šå‘˜",
-		vip2: "ä¹è§†è¶…çº§å½±è§†ä¼šå‘˜"
+		pcover1: "本片为付费影片，开通会员可免费观看",
+		pcover2: "试看已结束，继续观看请开通会员",
+		pcover3: "开通会员",
+		pcover4: "已是会员，立即登录",
+		item_w: " 万",
+		item_y: " 亿",
+		vip0: "会员极速看视频",
+		vip1: "乐次元影视会员",
+		vip2: "乐视超级影视会员"
 	},
 	o = {
 		pre_end: "Preview has ended",
@@ -4032,48 +4032,48 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		vip2: "Super LePass"
 	},
 	a = {
-		pre_end: "è©¦ç‡å·²çµæŸ",
-		pre_time: "3ç§’",
-		pre_full: "è§€çœ‹å®Œæ•´ç‰ˆ",
-		downapp: "ä¸‹è¼‰æ¨‚è¦–è¦–é » APP",
-		downapp_ty: "ä¸‹è¼‰æ¨‚è¦–é«”è‚² APP",
-		timeout1: "ç¨‹å¼å¸«å“¥å“¥æ‰“çžŒç¡ç¡è‘—äº†",
-		timeout2: "æˆ³é€™è£¡å«ä»–èµ·åºŠ",
-		timeout3: "ç¡çš„å¤ªé¦™äº†ï¼Œç«Ÿç„¶æ²’æœ‰é†’",
-		timeout4: "ç¹¼çºŒæˆ³ä»–",
-		timeout5: "ç¨‹å¼å¸«å“¥å“¥å¤ªç–²å‹žï¼Œå†è®“ä»–ç¡æœƒå…’å§",
-		timeout6: "ç¨å¾Œå†è©¦",
+		pre_end: "試睇已結束",
+		pre_time: "3秒",
+		pre_full: "觀看完整版",
+		downapp: "下載樂視視頻 APP",
+		downapp_ty: "下載樂視體育 APP",
+		timeout1: "程式師哥哥打瞌睡睡著了",
+		timeout2: "戳這裡叫他起床",
+		timeout3: "睡的太香了，竟然沒有醒",
+		timeout4: "繼續戳他",
+		timeout5: "程式師哥哥太疲勞，再讓他睡會兒吧",
+		timeout6: "稍後再試",
 		browser: "//i2.letvimg.com/lc06_img/201606/20/16/20/1619/hk_browser.png",
-		watch_now: "ç«‹å³è§€çœ‹",
+		watch_now: "立即觀看",
 		shareImg: "//i1.letvimg.com/lc06_img/201606/20/16/51/1650/hk_share.png",
 		layerImg: "//i1.letvimg.com/lc07_img/201606/20/18/34/1833/hk_layer.png",
-		topdl: "ä½¿ç”¨æ¨‚è¦–è¦–é » APP çœ‹ç›´æ’­æ›´æµæš¢",
-		topapp: "ä¸‹è¼‰App",
-		topdl_ty: "ä½¿ç”¨æ¨‚è¦–é«”è‚²APP çœ‹è³½äº‹ç›´æ’­æ›´æµæš¢",
-		topdl_pre1: "è©¦çœ‹",
-		topdl_pre2: "åˆ†é˜ï¼Œå®Œæ•´ç‰ˆç›¡åœ¨æ¨‚è¦–è¦–é »APP",
-		loadmore1: "ä¸Šæ‹‰è¼‰å…¥æ›´å¤š",
-		loadmore2: "ä¸‹æ‹‰è¼‰å…¥æ›´å¤š",
-		loadmore3: "åŠ è¼‰ä¸­...",
-		loadmore4: "åŠ è¼‰å¤±æ•—ï¼Œè«‹ä¸Šæ‹‰é‡è©¦",
-		loadmore5: "åŠ è¼‰å¤±æ•—ã€‚è«‹ä¸‹æ‹‰é‡è©¦",
-		bdphone1: "çˆ²å……åˆ†ä¿è­·æ‚¨çš„ä¿¡æ¯å®‰å…¨å’Œåˆæ³•æ¬Šåˆ©",
-		bdphone2: "è«‹ç¶å®šæ‰‹æé›»è©±å¾Œå†è©•è«–",
-		bdphone3: "åŽ»ç¶å®šæ‰‹æé›»è©±è™Ÿç¢¼",
-		qq: "QQç©ºé–“",
-		wb: "æ–°æµªå¾®åš",
-		wx: "å¾®ä¿¡",
-		cancel: "å–æ¶ˆ",
+		topdl: "使用樂視視頻 APP 看直播更流暢",
+		topapp: "下載App",
+		topdl_ty: "使用樂視體育APP 看賽事直播更流暢",
+		topdl_pre1: "試看",
+		topdl_pre2: "分鐘，完整版盡在樂視視頻APP",
+		loadmore1: "上拉載入更多",
+		loadmore2: "下拉載入更多",
+		loadmore3: "加載中...",
+		loadmore4: "加載失敗，請上拉重試",
+		loadmore5: "加載失敗。請下拉重試",
+		bdphone1: "爲充分保護您的信息安全和合法權利",
+		bdphone2: "請綁定手提電話後再評論",
+		bdphone3: "去綁定手提電話號碼",
+		qq: "QQ空間",
+		wb: "新浪微博",
+		wx: "微信",
+		cancel: "取消",
 		layerImg2: "//i3.letvimg.com/lc06_img/201606/23/17/46/1744/hk_img_collect.png",
-		pcover1: "æœ¬ç‰‡ç‚ºä»˜è²»å½±ç‰‡ï¼Œé–‹é€šæœƒå“¡å¯å…è²»è§€çœ‹",
-		pcover2: "è©¦ç‡å·²çµæŸï¼Œç¹¼çºŒè§€çœ‹è«‹é–‹é€šæœƒå“¡",
-		pcover3: "é–‹é€šæœƒå“¡",
-		pcover4: "å·²æ˜¯æœƒå“¡ï¼Œç«‹å³ç™»å…¥",
-		item_w: " è¬",
-		item_y: " å„„",
-		vip0: "æœƒå“¡æ¥µé€Ÿçœ‹è¦–é »",
-		vip1: "æ¨‚æ¬¡å…ƒå½±è¦–æœƒå“¡",
-		vip2: "æ¨‚è¦–è¶…ç´šå½±è¦–æœƒå“¡"
+		pcover1: "本片為付費影片，開通會員可免費觀看",
+		pcover2: "試睇已結束，繼續觀看請開通會員",
+		pcover3: "開通會員",
+		pcover4: "已是會員，立即登入",
+		item_w: " 萬",
+		item_y: " 億",
+		vip0: "會員極速看視頻",
+		vip1: "樂次元影視會員",
+		vip2: "樂視超級影視會員"
 	},
 	r = {
 		init: function () {
@@ -4291,7 +4291,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 	o = t("components/share/share_base"),
 	a = "",
 	r = info.region || "CN";
-	"CN" === r && (a = '<div class="shareBox" style=" display:block"><ul><li class="ico_weixin" id="uniShare_weixin" data-type="weixin" style="display:none;"><a href="javascript:;"><i></i><span>' + info.langPack.wx + '</span></a></li><li class="ico_qq"  id="uniShare_qqzone" data-type="qzone"><a href="javascript:;"><i style="background:url(http://i0.letvimg.com/img/201503/25/1718/QQ.png) no-repeat;background-size:100%"></i><span>' + info.langPack.qq + '</span></a></li><li class="ico_weibo" id="uniShare_weibo" data-type="weibo"><a href="javascript:;"><i style="background:url(http://i2.letvimg.com/img/201503/25/1718/xinlang.png) no-repeat;background-size:100%"></i><span>' + info.langPack.wb + '</span></a></li><li class="ico_pyq" id="uniShare_timeline"   style="display:none;"><a href="javascript:;"><i></i><span>æœ‹å‹åœˆ</span></a></li></ul><div class="qx_btn"><p class="qx"><a id="uniShare_close" href="javascript:;">' + info.langPack.cancel + "</a></p></div></div>"),
+	"CN" === r && (a = '<div class="shareBox" style=" display:block"><ul><li class="ico_weixin" id="uniShare_weixin" data-type="weixin" style="display:none;"><a href="javascript:;"><i></i><span>' + info.langPack.wx + '</span></a></li><li class="ico_qq"  id="uniShare_qqzone" data-type="qzone"><a href="javascript:;"><i style="background:url(http://i0.letvimg.com/img/201503/25/1718/QQ.png) no-repeat;background-size:100%"></i><span>' + info.langPack.qq + '</span></a></li><li class="ico_weibo" id="uniShare_weibo" data-type="weibo"><a href="javascript:;"><i style="background:url(http://i2.letvimg.com/img/201503/25/1718/xinlang.png) no-repeat;background-size:100%"></i><span>' + info.langPack.wb + '</span></a></li><li class="ico_pyq" id="uniShare_timeline"   style="display:none;"><a href="javascript:;"><i></i><span>朋友圈</span></a></li></ul><div class="qx_btn"><p class="qx"><a id="uniShare_close" href="javascript:;">' + info.langPack.cancel + "</a></p></div></div>"),
 	("HK" === r || "US" === r || "IN" === r) && (a = '<div class="shareBox" style=" display:block"><ul><li class="ico_weixin" id="uniShare_weixin" data-type="weixin" style="display:none;"><a href="javascript:;"><i></i></a></li><li class="ico_twitter"  id="uniShare_twitter" data-type="tw"><a href="javascript:;"><i style="background:url(http://i0.letvimg.com/lc05_img/201606/03/11/19/1118/twitter.png) no-repeat;background-size:100%"></i></a></li><li class="ico_facebook" id="uniShare_facebook" data-type="fb"><a href="javascript:;"><i style="background:url(http://i0.letvimg.com/lc05_img/201606/03/11/19/1118/facebook.png) no-repeat;background-size:100%"></i></a></li><li class="ico_pyq" id="uniShare_timeline"   style="display:none;"><a href="javascript:;"><i></i></a></li></ul><div class="qx_btn"><p class="qx"><a id="uniShare_close" href="javascript:;">cancel</a></p></div></div>');
 	var s,
 	c,
@@ -4301,7 +4301,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		shareHtml: a,
 		coverHTML: '<div id="uniShare_cover" class="block_layer" style="display:none;"></div>'
 	},
-	h = {
+	u = {
 		init: function () {
 			this._createShareButton()
 		},
@@ -4315,7 +4315,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		},
 		_createShareButton: function () {
 			var t = this;
-			window.info && window.info.share && window.info.share.shareButton && (0 == $("#j-btn-showhide").length && $("body").append($('<div class="up-letv" id="j-btn-showhide"></div>')), 0 == $("#j-btn-showhide .diy_share").length && ($("head").append('<style>.up-letv{position:fixed;right:8px;bottom:65px;width:50px;z-index:99;}.up-letv .diy_share{width:50px;height:50px;text-indent:-3000px;position:absolute;left:0;top:0;color:#f9a038;font-size:16px;text-align:center;line-height:50px;background:url("http://i2.letvimg.com/img/201503/25/1647/share_btn.png") no-repeat left top; background-size:100%;}</style>'), $("#j-btn-showhide").append(l = $('<span data-type="weixin"><a href="javascript:;"><b class="diy_share">åˆ†äº«</b></a></span>'))), $("#j-btn-showhide").show(), $("#j-btn-showhide .diy_share").show().on("click", function () {
+			window.info && window.info.share && window.info.share.shareButton && (0 == $("#j-btn-showhide").length && $("body").append($('<div class="up-letv" id="j-btn-showhide"></div>')), 0 == $("#j-btn-showhide .diy_share").length && ($("head").append('<style>.up-letv{position:fixed;right:8px;bottom:65px;width:50px;z-index:99;}.up-letv .diy_share{width:50px;height:50px;text-indent:-3000px;position:absolute;left:0;top:0;color:#f9a038;font-size:16px;text-align:center;line-height:50px;background:url("http://i2.letvimg.com/img/201503/25/1647/share_btn.png") no-repeat left top; background-size:100%;}</style>'), $("#j-btn-showhide").append(l = $('<span data-type="weixin"><a href="javascript:;"><b class="diy_share">分享</b></a></span>'))), $("#j-btn-showhide").show(), $("#j-btn-showhide .diy_share").show().on("click", function () {
 					t.show()
 				}))
 		},
@@ -4351,19 +4351,19 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			"weixin" === i ? o.weixinShare() : o.otherShare(i)
 		}
 	};
-	h.init(),
+	u.init(),
 	i.exports = {
 		show: function () {
-			h.show()
+			u.show()
 		},
 		hide: function () {
-			h.hide()
+			u.hide()
 		},
 		bind: function (t) {
-			h.bindDom(t)
+			u.bindDom(t)
 		},
 		changeEvent: function (t) {
-			h.changeEvent(t)
+			u.changeEvent(t)
 		}
 	}
 }, LTK["components/app/appAddList"] = function (t, e, i) {
@@ -4417,13 +4417,13 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		debug: !1
 	});
 	var p = function (t, e) {
-		u[t] ? u[t]["default"] = e : alert("appAdapter no find this method")
+		d[t] ? d[t]["default"] = e : alert("appAdapter no find this method")
 	};
 	n.setMethod = p;
-	var h = function () {
+	var u = function () {
 		var t = [],
 		e = [];
-		for (var i in u)
+		for (var i in d)
 			t.push(i);
 		var a = function () {
 			if (0 !== e.length) {
@@ -4436,24 +4436,24 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			if (0 === t.length)
 				return void a();
 			var i = t.shift();
-			n[i] = u[i][o.env],
-			u[i].init && e.push(u[i].init),
+			n[i] = d[i][o.env],
+			d[i].init && e.push(d[i].init),
 			arguments.callee()
 		},
 		s = function () {
-			for (var t in u)
-				n[t] = u[t]["default"], u[t].init && u[t].init()
+			for (var t in d)
+				n[t] = d[t]["default"], d[t].init && d[t].init()
 		};
 		"app" === o.env ? r() : s()
 	},
-	u = {
+	d = {
 		isApp: {
 			name: "isAppEnv",
 			app: function () {
 				return "app" === o.env ? !0 : !1
 			},
 			"default": function () {
-				return u.isApp.app()
+				return d.isApp.app()
 			}
 		},
 		getVersion: {
@@ -4556,7 +4556,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			name: "fun.callWebview",
 			app: function (t, e) {
 				t = t || {},
-				t.url = u.callWebview.map(t.url) || "Home",
+				t.url = d.callWebview.map(t.url) || "Home",
 				t.params && (t.params.title && (t.url += "_" + t.params.title), t.params.url && (t.url += "_" + t.params.url)),
 				a.webview.open(t, function (t) {
 					e(t)
@@ -4564,7 +4564,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			},
 			"default": function (t) {
 				t = t || {},
-				location.href = u.callWebview.map(t.url) || le.api_host.m_href
+				location.href = d.callWebview.map(t.url) || le.api_host.m_href
 			},
 			map: function (t) {
 				var e = l[t];
@@ -4586,17 +4586,17 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 			name: "fun.callShare",
 			init: function () {
 				"app" === o.env && c.changeEvent(function () {
-					u.callShare.app()
+					d.callShare.app()
 				})
 			},
 			app: function (t, e) {
-				var i = u.callShare.argumentsFormat(arguments);
-				a.share.callShare(u.callShare.setShare(i.shareInfo), function (t) {
+				var i = d.callShare.argumentsFormat(arguments);
+				a.share.callShare(d.callShare.setShare(i.shareInfo), function (t) {
 					i.callback(t)
 				})
 			},
 			"default": function (t, e) {
-				u.callShare.setShare(t),
+				d.callShare.setShare(t),
 				t && "function" == typeof t.showCustomLayer ? t.showCustomLayer() : c.show()
 			},
 			setShare: function (t) {
@@ -4624,11 +4624,11 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		setShare: {
 			name: "fun.setShare",
 			init: function () {
-				"app" === o.env && u.setShare.app(function () {})
+				"app" === o.env && d.setShare.app(function () {})
 			},
 			app: function (t, e) {
-				var i = u.callShare.argumentsFormat(arguments);
-				a.share.setShare(u.callShare.setShare(i.shareInfo), function (t) {
+				var i = d.callShare.argumentsFormat(arguments);
+				a.share.setShare(d.callShare.setShare(i.shareInfo), function (t) {
 					i.callback(t)
 				})
 			},
@@ -4689,7 +4689,7 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (t) {
 		}
 	};
 	o.env = a.app.isAppEnv ? "app" : "browser",
-	h(),
+	u(),
 	le.app = n,
 	i.exports = {
 		setMethod: n.setMethod
@@ -5564,8 +5564,8 @@ window.__openApp || (window.__openApp = {
 			c = t.attr("data-order"),
 			l = "undefined" != typeof __homeOpenApp && "undefined" != typeof __homeOpenApp[c] ? __homeOpenApp[c] : "",
 			p = e.letvMobile ? "lingxian" : e.android ? "android" : "ios",
-			h = Stats && Stats.BR ? Stats.BR : "letv",
-			u = "apponly";
+			u = Stats && Stats.BR ? Stats.BR : "letv",
+			d = "apponly";
 			__openApp._bindDefaultAppEvent({
 				app: r || "",
 				url: l ? l.url : "",
@@ -5574,7 +5574,7 @@ window.__openApp || (window.__openApp = {
 				vid: a || "",
 				pid: s || "",
 				type: "play",
-				from: "m_" + p + "_" + h + "_" + u,
+				from: "m_" + p + "_" + u + "_" + d,
 				thirdApp: l ? l.thirdApp : {}
 			})
 		}
@@ -6341,15 +6341,8 @@ window.__openApp || (window.__openApp = {
 			window.scrollTo(0, this.beforeScrollTop || 0)
 		},
 		onUserIconClicked: function (t) {
-			t.preventDefault();
-			var e = {
-				zh_cn: "zh_CN",
-				en_us: "en_US",
-				zh_hk: "zh_HK"
-			};
-			le.m.userCenter.openLoginPage({
-				language: e[info.lang] || "zh_CN"
-			})
+			t.preventDefault(),
+			location.href = "/my"
 		},
 		initScroll: function () {
 			var t = new s;
@@ -6604,29 +6597,29 @@ window.__openApp || (window.__openApp = {
 	"use strict";
 	t("components/com_base/global");
 	var n = {
-		skip: "è·³è¿‡",
-		appview: "å®¢æˆ·ç«¯è§‚çœ‹",
-		lastStaticTip: "ç»§ç»­æ‹–åŠ¨ï¼ŒæŸ¥çœ‹å…¨éƒ¨",
-		lastDragingTip: "é‡Šæ”¾åˆ‡æ¢è‡³ä¸‹ä¸€å±",
-		nextStaticTip: "ä¸‹æ‹‰è¿”å›žè‡³é¢‘é“é¡µ",
-		nextDragingTip: "é‡Šæ”¾è¿”å›žè‡³é¢‘é“é¡µ",
-		view: "æ’­æ”¾",
+		skip: "跳过",
+		appview: "客户端观看",
+		lastStaticTip: "继续拖动，查看全部",
+		lastDragingTip: "释放切换至下一屏",
+		nextStaticTip: "下拉返回至频道页",
+		nextDragingTip: "释放返回至频道页",
+		view: "播放",
 		view_h: "",
-		item_c: "æ¬¡",
-		item_w: " ä¸‡",
-		item_y: " äº¿",
-		viewtip: "äººæ­£åœ¨çœ‹",
-		tap: "ç‚¹å‡»",
-		addToDesk: "æ·»åŠ åˆ°æ‰‹æœºæ¡Œé¢ï¼Œéšæ—¶æ‰“å¼€çœ‹è§†é¢‘",
-		bottomDaoliu: "ä½¿ç”¨ä¹è§†è§†é¢‘APPï¼Œé«˜æ¸…å¤§å‰§æŠ¢å…ˆçœ‹",
-		letv: "ä¹è§†è§†é¢‘",
-		downloadFree: "å…è´¹ä¸‹è½½",
-		contentTip: "å†…å®¹",
-		xinxiti_ju: "é›†",
-		xinxiti_ju_all: "é›†å…¨",
-		xinxiti_zy: "æœŸ",
-		xinxiti_zy_all: "æœŸå…¨",
-		xinxiti_update: "æ›´æ–°è‡³"
+		item_c: "次",
+		item_w: " 万",
+		item_y: " 亿",
+		viewtip: "人正在看",
+		tap: "点击",
+		addToDesk: "添加到手机桌面，随时打开看视频",
+		bottomDaoliu: "使用乐视视频APP，高清大剧抢先看",
+		letv: "乐视视频",
+		downloadFree: "免费下载",
+		contentTip: "内容",
+		xinxiti_ju: "集",
+		xinxiti_ju_all: "集全",
+		xinxiti_zy: "期",
+		xinxiti_zy_all: "期全",
+		xinxiti_update: "更新至"
 	},
 	o = {
 		skip: "Skip",
@@ -6654,29 +6647,29 @@ window.__openApp || (window.__openApp = {
 		xinxiti_update: "Updated to "
 	},
 	a = {
-		skip: "ç•¥éŽ",
-		appview: "ç”¨æˆ¶ç«¯è§€çœ‹",
-		lastStaticTip: "ç¹¼çºŒæ‹–å‹•ï¼ŒæŸ¥çœ‹å…¨éƒ¨",
-		lastDragingTip: "é‡‹æ”¾åˆ‡æ›è‡³ä¸‹ä¸€èž¢å¹•",
-		nextStaticTip: "å‘ä¸‹æ‹‰è¿”å›žè‡³é »é“é ",
-		nextDragingTip: "é‡‹æ”¾è¿”å›žè‡³é »é“é é¢",
-		view: "æ’­æ”¾",
+		skip: "略過",
+		appview: "用戶端觀看",
+		lastStaticTip: "繼續拖動，查看全部",
+		lastDragingTip: "釋放切換至下一螢幕",
+		nextStaticTip: "向下拉返回至頻道頁",
+		nextDragingTip: "釋放返回至頻道頁面",
+		view: "播放",
 		view_h: "",
-		item_c: "æ¬¡",
-		item_w: " è¬",
-		item_y: " å„„",
-		viewtip: "äººæ­£åœ¨çœ‹",
-		tap: "é»žæ“Š",
-		addToDesk: "æ–°å¢žè‡³æ‰‹æ©Ÿæ¡Œé¢ï¼Œéš¨æ™‚é–‹å•Ÿçœ‹è¦–é »",
-		bottomDaoliu: "ä½¿ç”¨æ¨‚è¦–è¦–é »APPï¼Œé«˜æ¸…å¤§åŠ‡æ¶å…ˆçœ‹",
-		letv: "æ¨‚è¦–è¦–é »",
-		downloadFree: "å…è²»ä¸‹è¼‰",
-		contentTip: "å…§å®¹",
-		xinxiti_ju: "é›†",
-		xinxiti_ju_all: "é›†å…¨",
-		xinxiti_zy: "æœŸ",
-		xinxiti_zy_all: "æœŸå…¨",
-		xinxiti_update: "æ›´æ–°è‡³"
+		item_c: "次",
+		item_w: " 萬",
+		item_y: " 億",
+		viewtip: "人正在看",
+		tap: "點擊",
+		addToDesk: "新增至手機桌面，隨時開啟看視頻",
+		bottomDaoliu: "使用樂視視頻APP，高清大劇搶先看",
+		letv: "樂視視頻",
+		downloadFree: "免費下載",
+		contentTip: "內容",
+		xinxiti_ju: "集",
+		xinxiti_ju_all: "集全",
+		xinxiti_zy: "期",
+		xinxiti_zy_all: "期全",
+		xinxiti_update: "更新至"
 	},
 	r = {
 		init: function () {
@@ -6700,9 +6693,12 @@ window.__openApp || (window.__openApp = {
 	daoliuApp: require("components/app/callApp"),
 	init: function () {
 		if (!this.mUa.isApp() && "letvphone" !== info.openby) {
+			var i = String((new Date).getTime()),
+			n = +i.slice(-1) % 2 ? String(+i + 1) : i;
 			Cookie.set("_starttips1_", n, {
 				exp: "forever"
 			}),
+			
 			var t = Cookie.get("_starttips1_");
 			if (!t || t.slice(-1) % 2)
 				return info.query.noopenimg || "uc" === info.query.ref ? void Cookie.set("noopenimg", "1") : void(Cookie.get("noopenimg") || "undefined" != typeof __PromotionApp && "undefined" != typeof __PromotionApp.startPage && (this._initDom(), this._initEvent(), this.notip = !1))
@@ -6721,7 +6717,7 @@ window.__openApp || (window.__openApp = {
 		return "undefined" != typeof __PromotionApp && "undefined" != typeof __PromotionApp.startPage && (__PromotionApp.startPage = le.m.getPromotion.init(__PromotionApp.startPage)),
 		require("components/geoPack/home_v3"),
 		require("components/langPack/home_v3"),
-		['<div class="m-start">', '<div class="open-show" style="background-color:' + info.geoPack.bgcolor + '">', '<p class="p1">', '<img src="' + info.geoPack.titleImg + '" alt="" />', "</p>", '<p class="p4">', '<img alt="" src="' + info.geoPack.conImg + '" alt="" />', "</p>", '<p class="p2">', '<span><a href="javascript:;" class="clientWatch class' + (new Date).getTime() + '" style="background:#ffffff">' + info.langPack.appview + "</a>", '<a href="javascript:;" class="webWatch class' + (new Date).getTime() + '" style="background:#ffffff">' + info.langPack.skip + "</a></span>", "</p>", '<p class="p3"><!--<span><a href="javascript:;" data-action="notip"><i></i><b>ä¸å†æç¤º</b></a></span>--></p>', "</div>", "</div>"].join("")
+		['<div class="m-start">', '<div class="open-show" style="background-color:' + info.geoPack.bgcolor + '">', '<p class="p1">', '<img src="' + info.geoPack.titleImg + '" alt="" />', "</p>", '<p class="p4">', '<img alt="" src="' + info.geoPack.conImg + '" alt="" />', "</p>", '<p class="p2">', '<span><a href="javascript:;" class="clientWatch class' + (new Date).getTime() + '" style="background:#ffffff">' + info.langPack.appview + "</a>", '<a href="javascript:;" class="webWatch class' + (new Date).getTime() + '" style="background:#ffffff">' + info.langPack.skip + "</a></span>", "</p>", '<p class="p3"><!--<span><a href="javascript:;" data-action="notip"><i></i><b>不再提示</b></a></span>--></p>', "</div>", "</div>"].join("")
 	},
 	_render: function () {
 		this.events.emit("startPageShow"),
@@ -6818,470 +6814,30 @@ window.__openApp || (window.__openApp = {
 				c = s.find(".j_changeBox"),
 				l = c.length,
 				p = r + 1 >= l ? r + 1 - l : r + 1,
-				h = i.attr("data-index", p).find(".icon_change1");
-				this.isLowerIOS || (h.addClass("ani_icon_change"), n.setTimeout(function () {
+				u = i.attr("data-index", p).find(".icon_change1");
+				this.isLowerIOS || (u.addClass("ani_icon_change"), n.setTimeout(function () {
 						e.animating = !1,
-						h.removeClass("ani_icon_change")
+						u.removeClass("ani_icon_change")
 					}, 500)),
 				this.animating = !0,
 				c.hide(),
 				c.eq(p).show(),
 				o.loadImg(c.eq(p));
-				var u = s.attr("data-ap").replace(/_p1_/g, "_p" + (p + 1) + "_");
+				var d = s.attr("data-ap").replace(/_p1_/g, "_p" + (p + 1) + "_");
 				o.sendExplorStats({
-					ap: u
+					ap: d
 				})
 			}
 		}
 	};
 	i.exports = a
-}, LTK["projects/homeChannel/home_customBtn"] = function (t, e, i) {
-	"use strict";
-	var n = t("components/util/events"),
-	o = t("components/touchComp/leTimer"),
-	a = t("components/util/utils"),
-	r = t("air/string/parseJSON"),
-	s = {
-		init: function (t) {
-			this.initDom(t),
-			this.initEvent(),
-			this.initPage()
-		},
-		initDom: function (t) {
-			var e = {
-				containerSelector: "#j-content",
-				clickBtnSelector: ".icon_custom",
-				tipSelector: ".custom_tip"
-			};
-			this.settings = $.extend(e, t),
-			this.container = $(this.settings.containerSelector),
-			this.openClass = "ani_goWidth",
-			this.closeClass = "ani_outWidth",
-			a.isLowerIOS() && (this.openClass = "goWidth", this.closeClass = "outWidth")
-		},
-		initEvent: function () {
-			this.container.on("click", this.settings.clickBtnSelector, $.proxy(this.onBtnClicked, this)),
-			this.container.on("click", this.settings.tipSelector, $.proxy(this.hideTips, this)),
-			n.on("customTipHide", $.proxy(this.hideTips, this))
-		},
-		initPage: function () {
-			Cookie.get("home_tip_clicked") ? this.hideTips() : this.hideOtherTips()
-		},
-		onBtnClicked: function (t) {
-			var e = this.openClass,
-			i = $(t.target),
-			o = $(t.currentTarget);
-			if (i.hasClass("icon_close1"))
-				t.preventDefault(), this.hideTips(), o.hasClass(e) ? this.closeOpearation(o) : (this.closeOpearation(), this.openOperation(o)), this.addClickEffict(o.parents(".column_tit"));
-			else if (i.hasClass("icon_card_manage"))
-				n.emit("event_showManagerLayout"), o.removeClass(e);
-			else if (i.hasClass("icon_card_top")) {
-				var a = o.closest("section.column");
-				this.setListTop(a.attr("data-id")),
-				o.removeClass(e)
-			}
-		},
-		openOperation: function (t) {
-			t.addClass(this.openClass),
-			this.sendExplorerStats(t)
-		},
-		closeOpearation: function (t) {
-			var e = this.closeClass,
-			i = t || $("." + e);
-			i.removeClass(this.openClass).addClass(e),
-			o.setTimeout(function () {
-				i.removeClass(e)
-			}, 400)
-		},
-		addClickEffict: function (t) {
-			a.isLowerIOS() || (t.addClass("btn_click"), o.setTimeout(function () {
-					t.removeClass("btn_click")
-				}, 400))
-		},
-		sendExplorerStats: function (t) {
-			var e = t.find(".icon_card_manage").attr("data-stat"),
-			i = t.find(".icon_card_top").attr("data-stat");
-			r(e).ap && a.sendExplorStats({
-				ap: r(e).ap
-			}),
-			r(i).ap && a.sendExplorStats({
-				ap: r(i).ap
-			})
-		},
-		hideTips: function () {
-			this.container.find(this.settings.tipSelector).hide(),
-			Cookie.set("home_tip_clicked", "1", {
-				exp: "forever"
-			})
-		},
-		hideOtherTips: function () {
-			this.container.find(this.settings.tipSelector).each(function (t, e) {
-				0 !== t && $(e).hide()
-			})
-		},
-		setListTop: function (t) {
-			for (var e = this, i = __homeDataStore.blockOrder, a = 0; a < i.length; a++)
-				t === i[a] && i.splice(a, 1);
-			i.unshift(t),
-			o.setTimeout(function () {
-				n.emit("blockOrderResorted"),
-				e.scrollToFirst()
-			}, 500)
-		},
-		scrollToFirst: function () {
-			var t = this.container.offset().top - $("header").height() - $("#j-nav").height();
-			window.scrollTo(0, t)
-		}
-	};
-	i.exports = s
-}, LTK["air/util/tpl"] = function (t, e, i) {
-	var n = function (t, e) {
-		this.tpl = t,
-		this.mix = e
-	};
-	n.prototype = {
-		render: function (t, e) {
-			if (!t || !this.tpl)
-				return "";
-			e = e || this.mix;
-			var i,
-			n,
-			o,
-			a = "function" == typeof e,
-			r = this.tpl,
-			s = "";
-			if ("string" == typeof r) {
-				var c,
-				l = r.replace(/[\r\n\t]/g, "").replace(/\'/g, "\\'").replace(/\\{/g, "\\u001").replace(/\\}/g, "\\u002").split("{"),
-				p = "return '" + l[0] + "'";
-				for (i = 1, n = l.length; n > i; i++)
-					c = l[i].split("}"), p += c[0].indexOf("$item.") < 0 ? "+($item." + c[0] + "==null ? '' : $item." + c[0] + ")+'" + c[1] + "'" : "+(" + (c[0].indexOf("[[") < 0 ? c[0] : c[0].replace(/\[\[/g, "'").replace(/\]\]/g, "'")) + ")+'" + c[1] + "'";
-				r = this.tpl = new Function("$item", p.replace(/\\u001/g, "{").replace(/\\u002/g, "}"))
-			}
-			if (t.sort && t.join)
-				for (i = 0, n = t.length; n > i; i++)
-					o = t[i], a && e(o, i), s += r(o);
-			else
-				a && e(t, 0), s = r(t);
-			return s
-		}
-	},
-	n.render = function (t, e, i) {
-		if (!e)
-			return "";
-		var n,
-		o,
-		a,
-		r,
-		s = "function" == typeof i,
-		c = "",
-		l = t.replace(/[\r\n\t]/g, "").replace(/\'/g, "\\'").replace(/\\{/g, "\\u001").replace(/\\}/g, "\\u002").split("{"),
-		p = "return '" + l[0] + "'";
-		for (n = 1, o = l.length; o > n; n++)
-			r = l[n].split("}"), p += r[0].indexOf("$item.") < 0 ? "+($item." + r[0] + "==null ? '' : $item." + r[0] + ")+'" + r[1] + "'" : "+(" + (r[0].indexOf("[[") < 0 ? r[0] : r[0].replace(/\[\[/g, "'").replace(/\]\]/g, "'")) + ")+'" + r[1] + "'";
-		if (t = new Function("$item", p.replace(/\\u001/g, "{").replace(/\\u002/g, "}")), e.sort && e.join)
-			for (n = 0, o = e.length; o > n; n++)
-				a = e[n], s && i(a, n), c += t(a);
-		else
-			s && i(e, 0), c = t(e);
-		return c
-	},
-	n.simple = function (t, e) {
-		return e || (e = {}),
-		t.replace(/{(\w+)}/g, function (t, i) {
-			return e[i] || (0 === e[i] ? "0" : "")
-		})
-	},
-	i.exports = n
-}, LTK["components/touchComp/dragSort"] = function (t, e, i) {
-	"use strict";
-	var n = t("components/touchComp/leTimer"),
-	o = t("components/touchComp/touchUtil"),
-	a = t("components/touchComp/touchEvent"),
-	r = function () {};
-	r.prototype = {
-		constructor: r,
-		init: function (t) {
-			this.initDom(t),
-			this.initEvent(),
-			this.initDragSort()
-		},
-		initDom: function (t) {
-			this.options = t,
-			this.container = $(this.options.container),
-			this.draggable = this.options.draggable,
-			this.draggableItems = this.container.find(this.options.draggable),
-			this.handle = this.options.handle,
-			this.ghostClass = this.options.ghostClass,
-			this.onDragEnd = this.options.onDragEnd || function () {},
-			this.beginTop = this.container[0].getBoundingClientRect().top,
-			this.outerHeight = 0,
-			this.transStak = {}
-		},
-		initEvent: function () {
-			var t = new a;
-			t.init({
-				container: this.container,
-				target: this.handle,
-				onTouchStart: $.proxy(this.onTouchStart, this),
-				onTouchMove: $.proxy(this.onTouchMove, this),
-				onTouchEnd: $.proxy(this.onTouchEnd, this),
-				onOrtChange: $.proxy(this.onBeforePageResize, this)
-			})
-		},
-		onBeforePageResize: function () {
-			n.setTimeout($.proxy(this.onPageResize, this), 500)
-		},
-		onPageResize: function () {},
-		initDragSort: function () {},
-		onTouchStart: function (t) {
-			t.preventDefault();
-			var e = t.touches && t.touches[0],
-			i = e.target;
-			this.dragEl = $(i).closest(this.draggable),
-			this.startPos = {
-				rect: this.dragEl[0].getBoundingClientRect(),
-				x: e.clientX,
-				y: e.clientY
-			},
-			this.dragEl.css({
-				opacity: 0
-			});
-			var n = this.dragEl.css("margin").split(" ");
-			this.outerHeight = parseInt(n[0] || 0) + parseInt(n[2] || 0),
-			this.outerWidth = parseInt(n[1] || 0) + parseInt(n[3] || 0),
-			this.beforeIndex = this.dragEl.index(),
-			this._appendGhost(e.pageY)
-		},
-		onTouchMove: function (t) {
-			t.preventDefault();
-			var e = t.touches && t.touches[0];
-			this.currentPos = {
-				x: e.clientX,
-				y: e.clientY
-			};
-			var i = this.currentPos.x - this.startPos.x,
-			n = this.deltaY = this.currentPos.y - this.startPos.y;
-			o.setTranslate(this.ghostEl, i, n),
-			this._calcIndex(),
-			this._animateItem()
-		},
-		onTouchEnd: function () {
-			this.ghostEl.remove(),
-			this.ghostEl = null;
-			for (var t = 0; t < this.draggableItems.length; t++)
-				o.removeTrans(this.draggableItems.eq(t));
-			this.step > 0 ? this.dragEl.insertAfter(this.draggableItems[this.afterIndex]) : this.step < 0 && this.dragEl.insertBefore(this.draggableItems[this.afterIndex]),
-			this.draggableItems = this.container.find(this.draggable),
-			this.dragEl.css({
-				opacity: ""
-			}),
-			this.transStak = {},
-			this.step = 0,
-			this.onDragEnd({
-				beforeIndex: this.beforeIndex,
-				afterIndex: this.afterIndex,
-				dragEl: this.dragEl
-			})
-		},
-		_appendGhost: function (t) {
-			if (!this.ghostEl) {
-				var e = this.dragEl,
-				i = this.itemHeight = e.height(),
-				n = e.width();
-				this.ghostEl = this.dragEl.clone(),
-				this.ghostEl.addClass(this.ghostClass),
-				this.container.append(this.ghostEl),
-				this.ghostEl.css({
-					top: t - 1.5 * i,
-					left: this.outerWidth / 2,
-					width: n,
-					height: i,
-					opacity: .8,
-					position: "absolute",
-					zIndex: "100000",
-					pointerEvents: "none"
-				})
-			}
-		},
-		_calcIndex: function () {
-			this.step = Math.round(this.deltaY / (this.itemHeight + this.outerHeight)),
-			this.afterIndex = this.beforeIndex + this.step,
-			this.afterIndex < 0 && (this.afterIndex = 0),
-			this.afterIndex >= this.draggableItems.length - 1 && (this.afterIndex = this.draggableItems.length - 1),
-			this.targetEl = this.draggableItems.eq(this.afterIndex)
-		},
-		_animateItem: function () {
-			var t = this.step === Math.abs(this.step) ? -1 : 1,
-			e = Math.max(this.beforeIndex, this.afterIndex),
-			i = Math.min(this.beforeIndex, this.afterIndex),
-			n = this.targetEl.index();
-			this.transStak[n] = !0,
-			o.setTransition(this.targetEl, 150);
-			for (var a in this.transStak)
-				this.transStak.hasOwnProperty(a) && (a >= i && e >= a ? o.setTranslate(this.draggableItems.eq(a), 0, t * (this.itemHeight + this.outerHeight)) : o.setTranslate(this.draggableItems.eq(a), 0, 0))
-		},
-		refresh: function () {
-			this.container = $(this.options.container),
-			this.draggable = this.options.draggable,
-			this.draggableItems = this.container.find(this.options.draggable)
-		}
-	},
-	i.exports = r
-}, LTK["projects/homeChannel/home_cardManager"] = function (t, e, i) {
-	"use strict";
-	var n = t("air/util/tpl"),
-	o = (t("air/env/ua"), t("components/util/events")),
-	a = t("components/util/utils"),
-	r = t("components/touchComp/dragSort"),
-	s = {
-		init: function (t) {
-			this.initDom(t),
-			this.initEvent(),
-			this.initPage()
-		},
-		initDom: function (t) {
-			var e = {
-				mainLayoutSelector: "#j_mainLayout",
-				cardSelector: "#j_cardManager",
-				dragAreaSelector: "#j_sortablelist",
-				triggerSelector: "#j_manager_btn .manageCard"
-			};
-			this.settings = $.extend(e, t),
-			this.$mainLayout = $(this.settings.mainLayoutSelector),
-			this.$managerLayout = $(this.settings.cardSelector),
-			this.$dragArea = $(this.settings.dragAreaSelector),
-			this.$triggerBtn = $(this.settings.triggerSelector),
-			this.orderedBlockList = __homeDataStore.orderedBlockList,
-			this.blockOrder = __homeDataStore.blockOrder,
-			this.$staticBlocks = $("#j_mainLayout").find(".j-recstatic"),
-			this.$staticList = $("#j_cardManager").find(".j_static_list"),
-			this.beforeScrollTop = 0,
-			this.IP = info.region || "CN",
-			this.yindaoHide = !1
-		},
-		initEvent: function () {
-			this.$triggerBtn.on("click", $.proxy(this.showManagerlayout, this)),
-			this.$managerLayout.on("webkitAnimationEnd animationend", $.proxy(this.onAnimationEnd, this)),
-			o.on("event_showManagerLayout", $.proxy(this.showManagerlayout, this)),
-			this.$managerLayout.on("click", ".img_site_yindao", $.proxy(this.onHideYinDaoLayer, this)),
-			this.$managerLayout.on("touchmove", ".img_site_yindao", $.proxy(this.onYinDaoTouchMove, this)),
-			this.$managerLayout.find(".icon_go_back").on("click", $.proxy(this.onManagerBack, this)),
-			this.$managerLayout.on("click", ".btn_nav_cpl", $.proxy(this.onSortComplete, this)),
-			o.on("blockOrderResorted", $.proxy(this.onBlockResorted, this))
-		},
-		initPage: function () {
-			this.setStaticList(),
-			Cookie.get("home_drag_yindao_layer") && this.onHideYinDaoLayer()
-		},
-		setStaticList: function () {
-			for (var t = [], e = 0; e < this.$staticBlocks.length; e++) {
-				var i = {};
-				i.title = this.$staticBlocks.eq(e).attr("data-static"),
-				t.push(i)
-			}
-			var o = '<li class="sort_item"><a href="javascript:;"><span class="card_name sort_lock">{title}</span></a></li>',
-			a = new n(o);
-			this.$staticList.html(a.render(t))
-		},
-		showManagerlayout: function () {
-			var t = this.IP;
-			o.emit("customTipHide"),
-			this.beforeScrollTop = $("body").scrollTop(),
-			a.goLeft(this.$mainLayout, this.$managerLayout),
-			setTimeout(function () {
-				this.yindaoHide || a.sendExplorStats({
-					ap: "msite_setting_show_manage_all_all_" + t
-				}),
-				a.sendExplorStats({
-					ap: "msite_setting_jump_backhome_all_all_" + t
-				}),
-				a.sendExplorStats({
-					ap: "msite_setting_jump_save_all_all_" + t
-				})
-			}, 0),
-			this.dragSort || (this.$dragArea.html(this.getSortList()), this.initSortable())
-		},
-		onManagerBack: function () {
-			a.goBack(this.$mainLayout, this.$managerLayout),
-			o.emit("blockOrderResorted"),
-			window.scrollTo(0, this.beforeScrollTop || 0)
-		},
-		initSortable: function () {
-			this.dragSort = new r,
-			this.dragSort.init({
-				container: "#j_sortablelist",
-				draggable: "li",
-				handle: ".icon_site_drag",
-				ghostClass: "sort_active",
-				onDragEnd: $.proxy(this.onDragEnd, this)
-			})
-		},
-		onDragEnd: function (t) {
-			var e = t.dragEl.attr("data-id"),
-			i = t.beforeIndex,
-			n = t.afterIndex,
-			o = this.IP,
-			r = "msite_setting_other_remove_" + e + "_" + i + "to" + n + "_" + o;
-			a.sendClickStats({
-				ap: r
-			})
-		},
-		getSortList: function () {
-			var t = this,
-			e = '<li class="sort_item" data-name="{blockOrderId}" data-id="{blockOrderId}"><a href="javascript:;"><span class="card_name">{blockname}</span><span class="icon_font icon_site_drag"></span></a></li>',
-			i = new n(e),
-			o = i.render(this.orderedBlockList, function (e, i) {
-					e.blockOrderId = t.blockOrder[i]
-				});
-			return o
-		},
-		onHideYinDaoLayer: function () {
-			this.yindaoHide = !0,
-			this.$managerLayout.find(".img_site_yindao").hide(),
-			this.$dragArea.find(".sort_active").removeClass("sort_active"),
-			this.$managerLayout.off("click", ".img_site_yindao", $.proxy(this.onHideYinDaoLayer, this)),
-			this.$managerLayout.off("touchMove", ".img_site_yindao", $.proxy(this.onYinDaoTouchMove, this)),
-			Cookie.set("home_drag_yindao_layer", "1", {
-				exp: "forever"
-			})
-		},
-		onYinDaoTouchMove: function (t) {
-			t.preventDefault()
-		},
-		onSortComplete: function () {
-			this.getNewOrder(),
-			this.onManagerBack()
-		},
-		onAnimationEnd: function (t) {
-			a.animateEnd(this.$mainLayout, this.$managerLayout, t)
-		},
-		getNewOrder: function () {
-			var t = [];
-			this.$dragArea.find("li").each(function (e, i) {
-				t.push($(i).attr("data-id"))
-			}),
-			this.blockOrder = __homeDataStore.blockOrder = t,
-			o.emit("blockOrderResorted")
-		},
-		onBlockResorted: function () {
-			for (var t = __homeDataStore.blockOrder, e = t.length - 1; e >= 0; e--) {
-				var i = t[e];
-				this.$dragArea.prepend(this.$dragArea.find('li[data-id="' + i + '"]'))
-			}
-			this.dragSort && this.dragSort.refresh()
-		}
-	};
-	i.exports = s
 }, LTK["projects/homeChannel/home_blockManager"] = function (t, e, i) {
 	"use strict";
 	var n = t("air/env/ua"),
 	o = t("components/util/mUa"),
 	a = t("components/util/utils"),
 	r = t("components/util/events"),
-	s = (t("components/touchComp/leTimer"), t("projects/homeChannel/home_customBtn")),
-	c = t("projects/homeChannel/home_cardManager"),
-	l = {
+	s = {
 		init: function () {
 			this.initDom(),
 			this.initEvent(),
@@ -7295,7 +6851,6 @@ window.__openApp || (window.__openApp = {
 			this.appRecId = ""
 		},
 		initEvent: function () {
-			r.on("blockOrderResorted", $.proxy(this.onBlockResorted, this)),
 			a.isLowerIOS() && (r.on("pageAnimateGoLeft", $.proxy(this.onPageGoLeft, this)), r.on("pageAnimateGoBack", $.proxy(this.onPageGoBack, this)))
 		},
 		formatBlockData: function (t) {
@@ -7312,11 +6867,9 @@ window.__openApp || (window.__openApp = {
 			this.blockWrapper.show()
 		},
 		initPage: function () {
-			this.setOrderCookie(),
 			this.addHtmlToPage(),
 			Stats.bindExposure(),
-			s.init({}),
-			c.init({})
+			this.resortBlockList()
 		},
 		addHtmlToPage: function () {
 			for (var t = {}, e = [], i = 0; i < __homeDataStore.blockOrder.length; i++)
@@ -7327,18 +6880,6 @@ window.__openApp || (window.__openApp = {
 		},
 		initLazyImage: function () {
 			$(".j_img_active").find("i[data-src]").imglazyload()
-		},
-		setOrderBlockList: function () {
-			var t = {};
-			__homeDataStore.orderedBlockList.length = 0;
-			for (var e = 0; e < __homeDataStore.blockOrder.length; e++)
-				t = this.data[__homeDataStore.blockOrder[e]], t && t.html && __homeDataStore.orderedBlockList.push(t)
-		},
-		setOrderCookie: function () {
-			var t = __homeDataStore.blockOrder.join(",");
-			Cookie.set("leBlockOrder", t, {
-				exp: "forever"
-			})
 		},
 		getBlockOrder: function () {
 			var t = this.data,
@@ -7370,19 +6911,16 @@ window.__openApp || (window.__openApp = {
 					window.info.recData[e].fragId !== this.appRecId && t.push(window.info.recData[e].fragId);
 			return t
 		},
-		onBlockResorted: function () {
-			this.setOrderCookie(),
-			this.resortBlockList(),
-			this.setOrderBlockList()
-		},
 		resortBlockList: function () {
-			for (var t = __homeDataStore.blockOrder, e = t.length - 1; e >= 0; e--) {
+			var t = Cookie.get("leBlockOrder");
+			t = t.split(",");
+			for (var e = t.length - 1; e >= 0; e--) {
 				var i = t[e];
 				this.blockWrapper.prepend(this.blockWrapper.find('section[data-id="' + i + '"]'))
 			}
 		}
 	};
-	i.exports = l
+	i.exports = s
 }, LTK["air/env/isIE6"] = function (t, e, i) {
 	i.exports = !window.XMLHttpRequest && !!window.ActiveXObject
 }, LTK["air/ui/mask"] = function (t, e, i) {
@@ -7611,7 +7149,7 @@ window.__openApp || (window.__openApp = {
 		var e = {
 			mask: !1,
 			autoClose: 3e3,
-			content: "å†…å®¹",
+			content: "内容",
 			hideFn: function () {
 				this.$box.fadeOut()
 			}
@@ -7804,8 +7342,8 @@ window.__openApp || (window.__openApp = {
 			e = this.IP,
 			i = "msite_home_download_apk_all_all_" + e,
 			n = "msite_home_download_adddesk_all_all_" + e,
-			r = '<div class="addDesktop j-exposure-stat" data-ap="' + n + '"><a href="javascript:;" id="j-addDesktop" class="m_index_logo"><div class="logo"><span class="icon_font icon_logo1"></span></div><span class="addDesktop_txt">' + (info.langPack.tap || "ç‚¹å‡»") + '<i class="icon_font icon_share4"></i>' + (info.langPack.addToDesk || "æ·»åŠ åˆ°æ‰‹æœºæ¡Œé¢ï¼Œéšæ—¶æ‰“å¼€çœ‹è§†é¢‘") + "</span></a></div>",
-			s = '<div class="addDesktop j-exposure-stat" data-ap="' + i + '"><a href="javascript:;" id="j-addDesktop" class="android"><div class="logo"><span class="icon_font icon_logo1"></span></div><div class="android_tit"><h3>' + (info.langPack.letv || "ä¹è§†è§†é¢‘") + "</h3><p>" + (info.langPack.bottomDaoliu || "ä½¿ç”¨ä¹è§†è§†é¢‘APPï¼Œé«˜æ¸…å¤§å‰§æŠ¢å…ˆçœ‹") + "</p></div><span>" + (info.langPack.downloadFree || "å…è´¹ä¸‹è½½") + "</span></a></div>",
+			r = '<div class="addDesktop j-exposure-stat" data-ap="' + n + '"><a href="javascript:;" id="j-addDesktop" class="m_index_logo"><div class="logo"><span class="icon_font icon_logo1"></span></div><span class="addDesktop_txt">' + (info.langPack.tap || "点击") + '<i class="icon_font icon_share4"></i>' + (info.langPack.addToDesk || "添加到手机桌面，随时打开看视频") + "</span></a></div>",
+			s = '<div class="addDesktop j-exposure-stat" data-ap="' + i + '"><a href="javascript:;" id="j-addDesktop" class="android"><div class="logo"><span class="icon_font icon_logo1"></span></div><div class="android_tit"><h3>' + (info.langPack.letv || "乐视视频") + "</h3><p>" + (info.langPack.bottomDaoliu || "使用乐视视频APP，高清大剧抢先看") + "</p></div><span>" + (info.langPack.downloadFree || "免费下载") + "</span></a></div>",
 			c = s;
 			this.iosSafari && (c = r),
 			o.isApp() || this.$managerBtn.after(c),

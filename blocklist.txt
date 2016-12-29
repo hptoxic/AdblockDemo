@@ -74,4 +74,4 @@ xw.qq.com###app-bar.app-bar
 !--------------------------------sohu----------------------------------!
 !--sohu ad system!
 ||api.tv.sohu.com/v4/mobile/albumdetail.json
-@@m.tv.sohu.com###ad_banner
+m.tv.sohu.com###ad_banner

@@ -75,3 +75,4 @@ xw.qq.com###app-bar.app-bar
 !--sohu ad system!
 ||api.tv.sohu.com/v4/mobile/albumdetail.json
 @@||m.aty.sohu.com/h
+prod=ad&new=$domain=vod.itc.cn
